@@ -4,14 +4,14 @@ import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobUser;
 
 public class MyUser extends BmobUser {
-    private Integer gender;  // 0-男性  1-女性
+    private String gender;  // 0-男性  1-女性
     private String bio; // 自我简介
 
-    public Integer getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Integer gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

@@ -1,5 +1,6 @@
 package com.whut.getianao.walking_the_world_android;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,24 +48,24 @@ public class MainActivity extends AppCompatActivity {
         signup_btn.setOnClickListener(new View.OnClickListener() {
                                           @Override
                                           public void onClick(View v) {
-                                              MyUser myUser = new MyUser();
-                                              myUser.setUsername(username_input.getText().toString());
-                                              myUser.setPassword(pwd_input.getText().toString());
-                                              myUser.setGender(1);
-                                              myUser.setBio("hello world!");
+              MyUser myUser = new MyUser();
+              myUser.setUsername(username_input.getText().toString());
+              myUser.setPassword(pwd_input.getText().toString());
+              myUser.setGender("男");
+              myUser.setBio("hello world!");
 
-                                              myUser.signUp(new SaveListener<MyUser>() {
-                                                  @Override
-                                                  public void done(MyUser myUser, BmobException e) {
-                                                      if (e == null) {
-                                                          Toast.makeText(MainActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                                                      } else {
-                                                          Log.e("注册失败", "原因: ", e);
-                                                      }
-                                                  }
-                                              });
-                                          }
-                                      }
+              myUser.signUp(new SaveListener<MyUser>() {
+                  @Override
+                  public void done(MyUser myUser, BmobException e) {
+                      if (e == null) {
+                          Toast.makeText(MainActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                      } else {
+                          Log.e("注册失败", "原因: ", e);
+                      }
+                  }
+              });
+              }
+            }
         );
 
         // 登录按钮点击事件
@@ -79,6 +80,12 @@ public class MainActivity extends AppCompatActivity {
                     public void done(BmobUser bmobUser, BmobException e) {
                         if (e == null) {
                             Toast.makeText(MainActivity.this, bmobUser.getUsername() + "登录成功", Toast.LENGTH_SHORT).show();
+
+                            // 跳转到个人信息页面
+                            Intent intent=new Intent();
+                            intent.setClass(MainActivity.this,UserInfoActivity.class);
+                            startActivity(intent);
+                            
                         } else {
                             Log.e("登录失败", "原因: ", e);
                         }
