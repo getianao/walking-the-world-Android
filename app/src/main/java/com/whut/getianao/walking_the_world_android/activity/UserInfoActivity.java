@@ -1,4 +1,4 @@
-package com.whut.getianao.walking_the_world_android;
+package com.whut.getianao.walking_the_world_android.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.whut.getianao.walking_the_world_android.R;
 import com.whut.getianao.walking_the_world_android.data.MyUser;
 
 import cn.bmob.v3.BmobQuery;

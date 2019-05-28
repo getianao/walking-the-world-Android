@@ -17,8 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserInfoActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.TabActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,9 +25,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.UserInfoActivity" />
+        <activity android:name=".activity.MainActivity">
+
+        </activity>
+
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
-            android:authorities="com.whut.getianao.walking_the_world_android.BmobContentProvider"></provider>
+            android:authorities="com.whut.getianao.walking_the_world_android.BmobContentProvider" />
     </application>
 
 </manifest>
