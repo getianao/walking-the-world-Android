@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    tools:context=".activity.LoginActivity">
 
     <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
         android:id="@+id/email_text_field_boxes"
@@ -45,8 +44,8 @@
         android:id="@+id/sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="276dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="152dp"
         android:paddingLeft="16dp"
         android:paddingTop="10dp"
         android:paddingRight="16dp"
@@ -63,8 +62,8 @@
         android:id="@+id/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="152dp"
+        android:layout_marginEnd="72dp"
         android:paddingLeft="16dp"
         android:paddingTop="10dp"
         android:paddingRight="16dp"
@@ -72,7 +71,7 @@
         android:text="注册"
         android:textColor="#FFFFFF"
         android:textSize="16dp"
-        app:layout_constraintStart_toEndOf="@+id/QMUIRoundButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pwd_field_boxes"
         app:qmui_backgroundColor="@color/qmui_config_color_red"
         app:qmui_radius="5dp" />
