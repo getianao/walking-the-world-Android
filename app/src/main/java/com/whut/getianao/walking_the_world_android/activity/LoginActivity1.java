@@ -1,4 +1,4 @@
-package com.whut.getianao.walking_the_world_android.activity;
+package  com.whut.getianao.walking_the_world_android.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.whut.getianao.walking_the_world_android.R;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener, ViewTreeObserver.OnGlobalLayoutListener, TextWatcher {
+public class LoginActivity1 extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener, ViewTreeObserver.OnGlobalLayoutListener, TextWatcher {
 
     private String TAG = "ifu25";
 
@@ -142,11 +142,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.bt_login_register:
                 //注册
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                startActivity(new Intent(LoginActivity1.this, RegisterActivity.class));
                 break;
             case R.id.tv_login_forget_pwd:
                 //忘记密码
-                startActivity(new Intent(LoginActivity.this, ForgetPwdActivity.class));
+                startActivity(new Intent(LoginActivity1.this, ForgetPwdActivity.class));
                 break;
             case R.id.ll_login_layer:
             case R.id.ll_login_pull:
@@ -409,7 +409,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (null != mToast) {
             mToast.setText(msg);
         } else {
-            mToast = Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT);
+            mToast = Toast.makeText(LoginActivity1.this, msg, Toast.LENGTH_SHORT);
         }
 
         mToast.show();

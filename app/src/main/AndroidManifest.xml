@@ -24,12 +24,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/Account_Base.App.Theme.NoTitle"
             android:windowSoftInputMode="stateHidden|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+        <activity android:name=".activity.UploadActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+
         <activity android:name=".activity.RegisterActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="注册"
@@ -44,11 +48,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Account_Base.App.Theme.NoTitle"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <activity android:name=".activity.ShareActivity" />
         <activity android:name=".activity.TabActivity" />
         <activity android:name=".activity.UserInfoActivity" />
-        <activity android:name=".activity.MainActivity">
-
-        </activity>
+        <activity android:name=".activity.MainActivity" />
 
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
