@@ -28,10 +28,10 @@
         android:id="@+id/pwd_field_boxes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="156dp"
+        android:layout_marginTop="252dp"
         app:labelText="password"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-16dp">
+        tools:layout_editor_absoluteX="0dp">
 
         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
             android:id="@+id/pwd_input"
@@ -44,8 +44,9 @@
         android:id="@+id/sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="152dp"
+        android:layout_marginBottom="8dp"
         android:paddingLeft="16dp"
         android:paddingTop="10dp"
         android:paddingRight="16dp"
@@ -53,8 +54,10 @@
         android:text="登录"
         android:textColor="#FFFFFF"
         android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewToken"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pwd_field_boxes"
+        app:layout_constraintVertical_bias="0.0"
         app:qmui_backgroundColor="@color/qmui_config_color_red"
         app:qmui_radius="5dp" />
 
@@ -63,7 +66,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="152dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="8dp"
         android:paddingLeft="16dp"
         android:paddingTop="10dp"
         android:paddingRight="16dp"
@@ -71,8 +75,10 @@
         android:text="注册"
         android:textColor="#FFFFFF"
         android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/tokenInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pwd_field_boxes"
+        app:layout_constraintVertical_bias="0.0"
         app:qmui_backgroundColor="@color/qmui_config_color_red"
         app:qmui_radius="5dp" />
 
@@ -96,6 +102,57 @@
         tools:layout_editor_absoluteY="-1dp"
         tools:ignore="MissingConstraints" />
 
+    <Button
+        android:id="@+id/btnGetToken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
+        android:text="点击获取验证码"
+        app:layout_constraintBottom_toTopOf="@+id/email_text_field_boxes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewToken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginBottom="100dp"
+        android:text="验证码"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/tokenInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="88dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewToken" />
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499"
+        app:srcCompat="@drawable/apple" />
 
 
 </android.support.constraint.ConstraintLayout>
