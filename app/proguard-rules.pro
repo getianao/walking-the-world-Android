@@ -19,3 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# 保证百度类不能被混淆，否则会出现网络不可用等运行时异常
+-keep class com.baidu.** {*;}
+-keep class mapsdkvi.com.** {*;}    
+-dontwarn com.baidu.**
