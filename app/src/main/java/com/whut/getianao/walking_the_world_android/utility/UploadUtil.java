@@ -1,7 +1,15 @@
 package com.whut.getianao.walking_the_world_android.utility;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,6 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -24,16 +33,16 @@ public class UploadUtil {
     private static final int TIME_OUT = 10 * 1000; // 超时时间
     private static final String CHARSET = "utf-8"; // 设置编码
 
+
     /**
      * 上传文件到服务器
      *
      * @param file       需要上传的文件
      * @param RequestURL 请求的rul
-     * @return 返回响应的内容
+     * @return 返回响应的内容 JSON格式
      */
-    public static int uploadFile(File file, String RequestURL) {
-        int res = 0;
-        String result = null;
+    public static JSONObject uploadFile(File file, String RequestURL) {
+        JSONObject result = null;
         String BOUNDARY = UUID.randomUUID().toString(); // 边界标识 随机生成
         String PREFIX = "--", LINE_END = "\r\n";
         String CONTENT_TYPE = "multipart/form-data"; // 内容类型
@@ -86,7 +95,7 @@ public class UploadUtil {
                 /**
                  * * 获取响应码 200=成功 当响应成功，获取响应的流
                  * */
-                res = conn.getResponseCode();
+                int res = conn.getResponseCode();
                 Log.e(TAG, "Http请求回复状态码:" + res);
                 if (res == 200) {
                     Log.e(TAG, "请求成功！");
@@ -96,7 +105,8 @@ public class UploadUtil {
                     while ((ss = input.read()) != -1) {
                         sb1.append((char) ss);
                     }
-                    result = sb1.toString();
+                    // 解析服务器返回的数据，从string转为JSON
+                    result = new JSONObject(sb1.toString());
                     Log.e(TAG, "请求回复结果 : " + result);
                 } else {
                     Log.e(TAG, "请求失败！");
@@ -106,9 +116,48 @@ public class UploadUtil {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        return res;
+        return result;
     }
 
 
+    public static void uploadShare(Map<String,Object> data, String requestURL) throws IOException {
+        // 1.定义请求url
+        URL url = new URL(requestURL);
+        // 2.建立一个http的连接
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setConnectTimeout(5000);//设置连接超时时间
+        conn.setReadTimeout(5000); //设置读取的超时时间
+        // 3.设置一些请求的参数
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type",  "application/json");
+        // 序列化
+        JSONObject json_data=new JSONObject(data);
+        String s=String.valueOf(json_data);
+        conn.setRequestProperty("Content-Length", s.length() + "");
+        // 4.一定要记得设置 把数据以流的方式写给服务器
+        conn.setDoOutput(true); // 设置要向服务器写数据
+        conn.getOutputStream().write(s.getBytes());
+
+        int code = conn.getResponseCode(); // 服务器的响应码 200 OK //404 页面找不到
+        // // 503服务器内部错误
+        if (code == 200) {
+            InputStream is = conn.getInputStream();
+            // 把is的内容转换为字符串
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int len = -1;
+            while ((len = is.read(buffer)) != -1) {
+                bos.write(buffer, 0, len);
+            }
+            String result = new String(bos.toByteArray());
+            is.close();
+            System.out.println("发送成功！");
+
+        } else {
+            System.out.println("发送失败！");
+        }
+    }
 }
