@@ -46,7 +46,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
     private ListView mListView;
 
     private void initView() {
-        mMapView = (MapView) findViewById(R.id.bmapView);
+        mMapView = (MapView) findViewById(R.id.baiduMapView);
         mBaiduMap=mMapView.getMap();
 
         mCompleteButton = (Button) findViewById(R.id.chat_publish_complete_publish);
