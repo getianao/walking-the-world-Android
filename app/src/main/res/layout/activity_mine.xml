@@ -15,20 +15,32 @@
         android:id="@+id/ly_mine_head"
         layout="@layout/activity_mine_head" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/qmui_topbar_height"
-        android:background="@color/qmui_config_color_background"
-        android:fitsSystemWindows="true">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ly_mine_head">
 
-        <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
-            android:id="@+id/acyivity_mine_listitem"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:background="@color/qmui_config_color_background"
+            android:fitsSystemWindows="true">
 
-    </ScrollView>
+            <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
+                android:id="@+id/acyivity_mine_listitem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-
-
+        </ScrollView>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
+

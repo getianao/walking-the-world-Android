@@ -6,7 +6,7 @@
         android:id="@+id/friends_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/bg_home"
+        android:background="@mipmap/bg_login"
         android:orientation="vertical"
         android:paddingBottom="0dp">
     <include
@@ -20,7 +20,7 @@
         android:fitsSystemWindows="true">
 
         <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
-            android:id="@+id/groupListView"
+            android:id="@+id/groupListView_friends"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
