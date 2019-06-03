@@ -1,5 +1,6 @@
 package com.whut.getianao.walking_the_world_android.fragement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +14,9 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import com.whut.getianao.walking_the_world_android.R;
+import com.whut.getianao.walking_the_world_android.activity.AddFriendActivity;
+import com.whut.getianao.walking_the_world_android.activity.FriendActivity;
+import com.whut.getianao.walking_the_world_android.activity.FriendsSearchActivity;
 
 public class FriendsFragment extends Fragment {
     private QMUIGroupListView mGroupListView;
@@ -34,9 +38,18 @@ public class FriendsFragment extends Fragment {
         imageViewadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getContext(), AddFriendActivity.class);
+                startActivity(intent);
             }
         });
+        imageViewsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), FriendsSearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
     private void initGroupListView() {
 

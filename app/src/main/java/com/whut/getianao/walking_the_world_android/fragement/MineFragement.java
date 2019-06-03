@@ -27,7 +27,7 @@ public class MineFragement extends Fragment {
     private View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         view = inflater.inflate(R.layout.activity_mine, container, false);
+        view = inflater.inflate(R.layout.activity_mine, container, false);
 
         mGroupListView=view.findViewById(R.id.acyivity_mine_listitem);
         inithead();
@@ -62,6 +62,75 @@ public class MineFragement extends Fragment {
                 QMUICommonListItemView.ACCESSORY_TYPE_NONE);
         itemWithDetail.setDetailText("在右方的详细信息");
 
+        QMUICommonListItemView itemWithDetai2 = mGroupListView.createItemView(
+                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
+                "Item 2",
+                null,
+                QMUICommonListItemView.HORIZONTAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+        itemWithDetail.setDetailText("在右方的详细信息");
+
+
+        QMUICommonListItemView itemWithDetai3 = mGroupListView.createItemView(
+                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
+                "Item 2",
+                null,
+                QMUICommonListItemView.HORIZONTAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+        itemWithDetail.setDetailText("在右方的详细信息");
+
+        QMUICommonListItemView itemWithDetai4 = mGroupListView.createItemView(
+                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
+                "Item 2",
+                null,
+                QMUICommonListItemView.HORIZONTAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+        itemWithDetail.setDetailText("在右方的详细信息");
+
+
+        QMUICommonListItemView itemWithDetai5 = mGroupListView.createItemView(
+                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
+                "Item 2",
+                null,
+                QMUICommonListItemView.HORIZONTAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+        itemWithDetail.setDetailText("在右方的详细信息");
+
+
+
+        QMUICommonListItemView itemWithDetai6 = mGroupListView.createItemView(
+                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
+                "Item 2",
+                null,
+                QMUICommonListItemView.HORIZONTAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+        itemWithDetail.setDetailText("在右方的详细信息");
+
+        QMUICommonListItemView itemWithDetai7 = mGroupListView.createItemView(
+                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
+                "Item 2",
+                null,
+                QMUICommonListItemView.HORIZONTAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+        itemWithDetail.setDetailText("在右方的详细信息");
+
+        QMUICommonListItemView itemWithDetai8 = mGroupListView.createItemView(
+                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
+                "Item 2",
+                null,
+                QMUICommonListItemView.HORIZONTAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+        itemWithDetail.setDetailText("在右方的详细信息");
+
+        QMUICommonListItemView itemWithDetai9 = mGroupListView.createItemView(
+                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
+                "Item 2",
+                null,
+                QMUICommonListItemView.HORIZONTAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+        itemWithDetail.setDetailText("在右方的详细信息");
+
+
 
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -78,6 +147,14 @@ public class MineFragement extends Fragment {
         QMUIGroupListView.newSection(getContext())
                 .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
                 .addItemView(itemWithDetail, onClickListener)
+                .addItemView(itemWithDetai2, onClickListener)
+                .addItemView(itemWithDetai3, onClickListener)
+                .addItemView(itemWithDetai4, onClickListener)
+                .addItemView(itemWithDetai5, onClickListener)
+                .addItemView(itemWithDetai6, onClickListener)
+                .addItemView(itemWithDetai7, onClickListener)
+                .addItemView(itemWithDetai8, onClickListener)
+                .addItemView(itemWithDetai9, onClickListener)
                 .addTo(mGroupListView);
 
 //        QMUIGroupListView.newSection(getContext())
