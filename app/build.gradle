@@ -53,4 +53,7 @@ dependencies {
     //navigation tab bar
     implementation 'devlight.io:navigationtabbar:1.2.5'
 
+    //
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
 }
