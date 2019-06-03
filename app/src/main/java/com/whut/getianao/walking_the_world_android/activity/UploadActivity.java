@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.whut.getianao.walking_the_world_android.R;
+import com.whut.getianao.walking_the_world_android.utility.ActivityUtil;
 import com.whut.getianao.walking_the_world_android.utility.UploadUtil;
 
 import org.json.JSONException;
@@ -137,7 +139,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void run() {
                         try {
-                            UploadUtil.uploadShare(data, "http://10.120.174.62:8080/activity/publish");
+                            ActivityUtil.addActivity(data);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

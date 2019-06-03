@@ -9,12 +9,14 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -123,41 +125,4 @@ public class UploadUtil {
     }
 
 
-    public static void uploadShare(Map<String,Object> data, String requestURL) throws IOException {
-        // 1.定义请求url
-        URL url = new URL(requestURL);
-        // 2.建立一个http的连接
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setConnectTimeout(5000);//设置连接超时时间
-        conn.setReadTimeout(5000); //设置读取的超时时间
-        // 3.设置一些请求的参数
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Content-Type",  "application/json");
-        // 序列化
-        JSONObject json_data=new JSONObject(data);
-        String s=String.valueOf(json_data);
-        conn.setRequestProperty("Content-Length", s.length() + "");
-        // 4.一定要记得设置 把数据以流的方式写给服务器
-        conn.setDoOutput(true); // 设置要向服务器写数据
-        conn.getOutputStream().write(s.getBytes());
-
-        int code = conn.getResponseCode(); // 服务器的响应码 200 OK //404 页面找不到
-        // // 503服务器内部错误
-        if (code == 200) {
-            InputStream is = conn.getInputStream();
-            // 把is的内容转换为字符串
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
-            int len = -1;
-            while ((len = is.read(buffer)) != -1) {
-                bos.write(buffer, 0, len);
-            }
-            String result = new String(bos.toByteArray());
-            is.close();
-            System.out.println("发送成功！");
-
-        } else {
-            System.out.println("发送失败！");
-        }
-    }
 }
