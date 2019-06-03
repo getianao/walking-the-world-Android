@@ -1,4 +1,4 @@
-package  com.whut.getianao.walking_the_world_android.activity;
+package com.whut.getianao.walking_the_world_android.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -30,33 +30,34 @@ import com.whut.getianao.walking_the_world_android.utility.TokenUtil;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener, ViewTreeObserver.OnGlobalLayoutListener, TextWatcher {
 
     private String TAG = "ifu25";
-
-    private ImageButton mIbNavigationBack;
+    //layout
     private LinearLayout mLlLoginPull;
-    private View mLlLoginLayer;
+    private LinearLayout mLlLoginUsername;
     private LinearLayout mLlLoginOptions;
+    private LinearLayout mLayBackBar;
+    private LinearLayout mLlLoginPwd;
+    //et
     private EditText mEtLoginUsername;
     private EditText mEtLoginPwd;
-    private LinearLayout mLlLoginUsername;
-    private ImageView mIvLoginUsernameDel;
-    private Button mBtLoginSubmit;
-    private LinearLayout mLlLoginPwd;
+    //view
+    private View mLlLoginLayer;
     private ImageView mIvLoginPwdDel;
     private ImageView mIvLoginLogo;
-    private LinearLayout mLayBackBar;
     private TextView mTvLoginForgetPwd;
+    private ImageView mIvLoginUsernameDel;
+    //button
+    private Button mBtLoginSubmit;
+    private ImageButton mIbNavigationBack;
     private Button mBtLoginRegister;
 
     //全局Toast
     private Toast mToast;
-
     private int mLogoHeight;
     private int mLogoWidth;
+    private final int SIGN_IN_SUCCESS = 0;
+    private final int SIGN_IN_FAILED = 1;
 
-    private final int SIGN_IN_SUCCESS=0;
-    private final int SIGN_IN_FAILED=1;
-
-    private Handler handler=new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -403,8 +404,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     //登录
     private void loginRequest() {
-        final String email =  mEtLoginUsername.getText().toString();
-        final String pwd =  mEtLoginPwd.getText().toString();
+        final String email = mEtLoginUsername.getText().toString();
+        final String pwd = mEtLoginPwd.getText().toString();
         // 先判断字段是否填写好
         if (email.equals("") || pwd.equals("")) {
             Toast toast = Toast.makeText(getApplicationContext(), "请填写字段！", Toast.LENGTH_LONG);
