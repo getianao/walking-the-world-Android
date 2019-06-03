@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal">
+    <Space
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
+
+    <EditText
+        android:id="@+id/et_login_username"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_weight="3"
+        android:background="@null"
+        android:ems="15"
+        android:focusable="true"
+        android:hint="搜索"
+        android:imeOptions="actionDone"
+        android:inputType="textPhonetic"
+        android:lines="1"
+        android:maxLines="1"
+        android:minLines="1"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/login_line_color"
+        android:textCursorDrawable="@null"
+        android:textSize="@dimen/font_16" />
+
+    <ImageView
+        android:id="@+id/iv_login_username_del"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter"
+        android:visibility="gone"
+        app:srcCompat="@mipmap/ic_clear" />
+    <ImageView
+        android:id="@+id/friends_search"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:contentDescription="@null"
+        android:padding="8dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/friends_search" />
+
+
+
+</LinearLayout>

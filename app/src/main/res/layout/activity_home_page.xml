@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.HomePageActivity">
+    <LinearLayout
+        android:id="@+id/home_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_home"
+        android:orientation="vertical"
+        android:paddingBottom="0dp">
+
+
+
+
+        <LinearLayout
+            android:id="@+id/parent_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/location"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/ic_material"
+                android:contentDescription="@null"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/location_selected" />
+
+            <ImageView
+                android:id="@+id/recording"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/ic_material"
+                android:contentDescription="@null"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/recording" />
+
+            <ImageView
+                android:id="@+id/friends"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/ic_material"
+                android:contentDescription="@null"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/friends" />
+
+            <ImageView
+                android:id="@+id/mine"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/ic_material"
+                android:contentDescription="@null"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/mine" />
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
