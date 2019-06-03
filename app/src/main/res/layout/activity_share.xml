@@ -40,4 +40,36 @@
         tools:layout_editor_absoluteX="143dp"
         tools:layout_editor_absoluteY="112dp" />
 
+    <Button
+        android:id="@+id/buttonNewShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发布新动态"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="280dp" />
+
+    <Button
+        android:id="@+id/buttonAddComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发布一条评论"
+        tools:layout_editor_absoluteX="248dp"
+        tools:layout_editor_absoluteY="280dp" />
+
+    <Button
+        android:id="@+id/buttonAllActivities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="所有动态"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="368dp" />
+
+    <Button
+        android:id="@+id/buttonGetComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="得到动态的评论"
+        tools:layout_editor_absoluteX="256dp"
+        tools:layout_editor_absoluteY="375dp" />
+
 </android.support.constraint.ConstraintLayout>

@@ -93,7 +93,6 @@ public class TokenUtil {
      * @author Liu Zhian
      * @time 2019/5/30 0030 下午 7:57
      */
-
     public static int loginVerificate(String email,String password)
     {
         int resultCode = -1;
