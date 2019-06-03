@@ -10,6 +10,7 @@ import com.baidu.mapapi.SDKInitializer;
  * @date: 2019/5/30 0030
  */
 public class MyApplication extends Application {
+    static public int userId = 1;
     @Override
     public void onCreate() {
         super.onCreate();

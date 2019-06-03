@@ -3,6 +3,7 @@ package com.whut.getianao.walking_the_world_android.fragement;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +16,23 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUILoadingView;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
+import com.whut.getianao.walking_the_world_android.MyApplication;
 import com.whut.getianao.walking_the_world_android.R;
+import com.whut.getianao.walking_the_world_android.data.User;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.whut.getianao.walking_the_world_android.utility.UserUtil.getFriendInfo;
+
 public class MineFragement extends Fragment {
     private QMUIGroupListView mGroupListView;
     private View view;
+    private User u;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_mine, container, false);
@@ -36,18 +44,31 @@ public class MineFragement extends Fragment {
         return view;
     }
     private void inithead(){
+        /**
+         * 获取userId
+         */
+//        u = getFriendInfo(MyApplication.userId);
         ImageView blurImageView = view.findViewById(R.id.h_back);
-        Glide.with(this).load(R.mipmap.head)
+
+
+        Glide.with(this).load( R.id.h_head)
                 .bitmapTransform(new BlurTransformation(getContext(), 25), new CenterCrop(getContext()))
                 .into(blurImageView);
         ImageView avatarImageView = view.findViewById(R.id.h_head);
-        Glide.with(this).load(R.mipmap.head)
+        Glide.with(this).load( R.id.h_head)
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .into(avatarImageView);
-        TextView username=view.findViewById(R.id.user_name);
-        username.setText("?");
-        TextView user_email=view.findViewById(R.id.user_email);
-        user_email.setText("?");
+//
+//        TextView username = view.findViewById(R.id.user_name);
+//        username.setText(u.getName());
+//        TextView user_email = view.findViewById(R.id.user_email);
+//        user_email.setText(u.getEmail());
+//        TextView user_age = view.findViewById(R.id.user_age);
+//        user_email.setText(u.getAge());
+//        TextView user_company = view.findViewById(R.id.user_company);
+//        user_email.setText(u.getCompany());
+//        TextView user_bornPlace = view.findViewById(R.id.user_bornPlace());
+//        user_email.setText(u.getBornPlace());
     }
 
 
@@ -56,80 +77,27 @@ public class MineFragement extends Fragment {
 
         QMUICommonListItemView itemWithDetail = mGroupListView.createItemView(
                 ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
-                "Item 2",
+                "年龄",
                 null,
                 QMUICommonListItemView.HORIZONTAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetail.setDetailText("在右方的详细信息");
+        itemWithDetail.setDetailText(String.valueOf(11));
 
         QMUICommonListItemView itemWithDetai2 = mGroupListView.createItemView(
                 ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
-                "Item 2",
+                "公司",
                 null,
                 QMUICommonListItemView.HORIZONTAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetail.setDetailText("在右方的详细信息");
-
+        itemWithDetai2.setDetailText(String.valueOf(12));
 
         QMUICommonListItemView itemWithDetai3 = mGroupListView.createItemView(
                 ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
-                "Item 2",
+                "出生地",
                 null,
                 QMUICommonListItemView.HORIZONTAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetail.setDetailText("在右方的详细信息");
-
-        QMUICommonListItemView itemWithDetai4 = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
-                "Item 2",
-                null,
-                QMUICommonListItemView.HORIZONTAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetail.setDetailText("在右方的详细信息");
-
-
-        QMUICommonListItemView itemWithDetai5 = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
-                "Item 2",
-                null,
-                QMUICommonListItemView.HORIZONTAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetail.setDetailText("在右方的详细信息");
-
-
-
-        QMUICommonListItemView itemWithDetai6 = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
-                "Item 2",
-                null,
-                QMUICommonListItemView.HORIZONTAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetail.setDetailText("在右方的详细信息");
-
-        QMUICommonListItemView itemWithDetai7 = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
-                "Item 2",
-                null,
-                QMUICommonListItemView.HORIZONTAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetail.setDetailText("在右方的详细信息");
-
-        QMUICommonListItemView itemWithDetai8 = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
-                "Item 2",
-                null,
-                QMUICommonListItemView.HORIZONTAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetail.setDetailText("在右方的详细信息");
-
-        QMUICommonListItemView itemWithDetai9 = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
-                "Item 2",
-                null,
-                QMUICommonListItemView.HORIZONTAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetail.setDetailText("在右方的详细信息");
-
+        itemWithDetai3.setDetailText(String.valueOf(13));
 
 
 
@@ -137,8 +105,11 @@ public class MineFragement extends Fragment {
             @Override
             public void onClick(View v) {
                 if (v instanceof QMUICommonListItemView) {
-                    CharSequence text = ((QMUICommonListItemView) v).getText();
-                    Toast.makeText(getActivity(), text + " is Clicked", Toast.LENGTH_SHORT).show();
+
+//                    CharSequence text = ((QMUICommonListItemView) v).getText();
+//                    Toast.makeText(getActivity(), text + " is Clicked", Toast.LENGTH_SHORT).show();
+//
+                    showEditTextDialog((QMUICommonListItemView) v);
                 }
             }
         };
@@ -149,17 +120,39 @@ public class MineFragement extends Fragment {
                 .addItemView(itemWithDetail, onClickListener)
                 .addItemView(itemWithDetai2, onClickListener)
                 .addItemView(itemWithDetai3, onClickListener)
-                .addItemView(itemWithDetai4, onClickListener)
-                .addItemView(itemWithDetai5, onClickListener)
-                .addItemView(itemWithDetai6, onClickListener)
-                .addItemView(itemWithDetai7, onClickListener)
-                .addItemView(itemWithDetai8, onClickListener)
-                .addItemView(itemWithDetai9, onClickListener)
                 .addTo(mGroupListView);
 
 //        QMUIGroupListView.newSection(getContext())
 //                .setTitle("Section 2: 自定义右侧 View")
 //                .addItemView(itemWithCustom, onClickListener)
 //                .addTo(mGroupListView);
+    }
+    private void showEditTextDialog(final QMUICommonListItemView view) {
+        final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(getActivity());
+        CharSequence text = (view).getText();
+        builder.setTitle(text+"")
+                .setPlaceholder("在此输入您新的"+text)
+                .setInputType(InputType.TYPE_CLASS_TEXT)
+                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .addAction("确定", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        CharSequence text = builder.getEditText().getText();
+                        if (text != null && text.length() > 0) {
+                            view.setDetailText(text);
+                            //修改用户信息
+                            Toast.makeText(getActivity(), "您的昵称: " + text, Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        } else {
+                            Toast.makeText(getActivity(), "请填入新的"+text, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .create().show();
     }
 }

@@ -49,6 +49,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/Account_Base.App.Theme.NoTitle"
             android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
 
         </activity>
         <activity
@@ -77,11 +81,7 @@
             android:theme="@style/Account_Base.App.Theme.NoTitle"/>
         <activity android:name=".activity.HomePageActivity"
             android:theme="@style/Account_Base.App.Theme.NoTitle">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
