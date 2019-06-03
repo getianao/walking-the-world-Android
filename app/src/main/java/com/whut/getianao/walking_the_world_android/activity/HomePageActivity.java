@@ -1,6 +1,9 @@
 package com.whut.getianao.walking_the_world_android.activity;
 
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +14,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.whut.getianao.walking_the_world_android.R;
+import com.whut.getianao.walking_the_world_android.adapter.TabFragmentPagerAdapter;
+import com.whut.getianao.walking_the_world_android.fragement.MapFragment;
+import com.whut.getianao.walking_the_world_android.fragement.TabFragement01;
+import com.whut.getianao.walking_the_world_android.fragement.TabFragement02;
+import com.whut.getianao.walking_the_world_android.fragement.TabFragement03;
+import com.whut.getianao.walking_the_world_android.fragement.TabFragement04;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +31,7 @@ public class HomePageActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private NavigationTabBar navigationTabBar;
 
-    private View view1, view2, view3, view4;
-    private List<View> viewList;//view数组
+    private List<Fragment> fragmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,41 +46,25 @@ public class HomePageActivity extends AppCompatActivity {
 
         initPageView();
         initNavigationBar();
-
     }
 
-    private void initPageView() {
-        LayoutInflater inflater = getLayoutInflater();
-        view1 = inflater.inflate(R.layout.fragment01, null);
-        view2 = inflater.inflate(R.layout.fragment02, null);
-        view3 = inflater.inflate(R.layout.fragment03, null);
-        view4 = inflater.inflate(R.layout.fragment04, null);
-        viewList = new ArrayList<View>();// 将要分页显示的View装入数组中
-        viewList.add(view1);
-        viewList.add(view2);
-        viewList.add(view3);
-        viewList.add(view4);
 
-        viewPager.setAdapter(new PagerAdapter() {
+    private void initPageView() {
+        fragmentList = new ArrayList<>();
+        fragmentList.add(new MapFragment());
+        fragmentList.add(new TabFragement02());
+        fragmentList.add(new TabFragement03());
+        fragmentList.add(new TabFragement04());
+
+        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int arg0) {
+                return fragmentList.get(arg0);//显示第几个页面
+            }
+
             @Override
             public int getCount() {
-                return viewList.size();
-            }
-
-            @Override
-            public boolean isViewFromObject(final View view, final Object object) {
-                return view.equals(object);
-            }
-
-            @Override
-            public void destroyItem(final View container, final int position, final Object object) {
-                ((ViewPager) container).removeView((View) object);
-            }
-
-            @Override
-            public Object instantiateItem(final ViewGroup container, final int position) {
-                container.addView(viewList.get(position));
-                return viewList.get(position);
+                return fragmentList.size();//有几个页面
             }
         });
     }
@@ -83,42 +75,35 @@ public class HomePageActivity extends AppCompatActivity {
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.mipmap.location_selected),
                         Color.parseColor("#87CEFA")//选中背景色
-                ).title("Heart")
-                        .badgeTitle("NTB")
+                ).title("地图")
+//                        .badgeTitle("地图")
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.mipmap.recording),
                         Color.parseColor("#87CEFA")
-                ).title("Cup")
-                        .badgeTitle("with")
+                ).title("动态")
+//                        .badgeTitle("动态")
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.mipmap.friends),
                         Color.parseColor("#87CEFA")
-                ).title("Diploma")
-                        .badgeTitle("state")
+                ).title("好友")
+//                        .badgeTitle("好友")
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.mipmap.mine),
                         Color.parseColor("#87CEFA")
-                ).title("Flag")
-                        .badgeTitle("icon")
+                ).title("我")
+//                        .badgeTitle("我")
                         .build()
         );
-//        models.add(
-//                new NavigationTabBar.Model.Builder(
-//                        getResources().getDrawable(R.drawable.ic_fifth),
-//                        Color.parseColor("#000000")
-//                ).title("Medal")
-//                        .badgeTitle("777")
-//                        .build()
-//        );
+
 
         navigationTabBar.setModels(models);
         navigationTabBar.setViewPager(viewPager, 0);

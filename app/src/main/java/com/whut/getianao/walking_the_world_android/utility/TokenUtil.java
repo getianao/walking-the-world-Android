@@ -36,7 +36,7 @@ public class TokenUtil {
             System.out.println(sb);
             // 解析服务器返回的数据，从string转为JSON
             JSONObject result = new JSONObject(sb.toString());
-            resultCode = (int) result.get("code");
+            resultCode = (int) result.get("status");
             System.out.println(resultCode);
         } catch (MalformedURLException me) {
             System.err.println("你输入的URL格式有问题！");
@@ -73,7 +73,7 @@ public class TokenUtil {
             System.out.println(sb);
             // 解析服务器返回的数据，从string转为JSON
             JSONObject result = new JSONObject(sb.toString());
-            resultCode = (int) result.get("code");
+            resultCode = (int) result.get("status");
             System.out.println(resultCode);
         } catch (MalformedURLException me) {
             System.err.println("你输入的URL格式有问题！");
@@ -112,7 +112,7 @@ public class TokenUtil {
             System.out.println(sb);
             // 解析服务器返回的数据，从string转为JSON
             JSONObject result = new JSONObject(sb.toString());
-            resultCode = (int) result.get("code");
+            resultCode = (int) result.get("status");
             System.out.println(resultCode);
         } catch (MalformedURLException me) {
             System.err.println("你输入的URL格式有问题！");

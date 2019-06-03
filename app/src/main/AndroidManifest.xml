@@ -32,7 +32,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MapActivity">
-
         </activity>
 
         <meta-data
@@ -41,7 +40,6 @@
 
         <activity android:name=".activity.UploadActivity"></activity>
         <activity
-
             android:name=".activity.LoginActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="登录"
@@ -49,7 +47,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Account_Base.App.Theme.NoTitle"
             android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
@@ -73,11 +75,6 @@
         <activity android:name=".activity.MainActivity"/>
 
         <activity android:name=".activity.HomePageActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <provider

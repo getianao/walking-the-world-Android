@@ -64,6 +64,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             switch (msg.what) {      //判断标志位
                 case SIGN_IN_SUCCESS:
                     mToast.makeText(getApplicationContext(), "登录成功！", Toast.LENGTH_LONG).show();
+                    Intent intent=new Intent(getApplicationContext(),HomePageActivity.class);
+                    startActivity(intent);
                     break;
                 case SIGN_IN_FAILED:
                     mToast.makeText(getApplicationContext(), "登录失败！", Toast.LENGTH_LONG).show();
