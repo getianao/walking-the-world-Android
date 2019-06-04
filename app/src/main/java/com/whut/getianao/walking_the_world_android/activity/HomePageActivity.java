@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.whut.getianao.walking_the_world_android.R;
 import com.whut.getianao.walking_the_world_android.adapter.TabFragmentPagerAdapter;
+import com.whut.getianao.walking_the_world_android.fragement.FriendsFragment;
 import com.whut.getianao.walking_the_world_android.fragement.MapFragment;
+import com.whut.getianao.walking_the_world_android.fragement.MineFragement;
 import com.whut.getianao.walking_the_world_android.fragement.TabFragement01;
 import com.whut.getianao.walking_the_world_android.fragement.TabFragement02;
 import com.whut.getianao.walking_the_world_android.fragement.TabFragement03;
@@ -54,7 +56,7 @@ public class HomePageActivity extends AppCompatActivity {
         fragmentList.add(new MapFragment());
         fragmentList.add(new TabFragement02());
         fragmentList.add(new TabFragement03());
-        fragmentList.add(new TabFragement04());
+        fragmentList.add(new MineFragement());
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

@@ -170,4 +170,10 @@
     <color name="mediumblue">#0000CD</color><!--中兰色 -->
     <color name="darkblue">#00008B</color><!--暗蓝色 -->
     <color name="navy">#000080</color><!--海军色 -->
+
+
+
+    <color name="photopicker_background">#181819</color>
+    <color name="colorBlue2">#2988CC</color>
+    <color name="colorGray">#6c6c6c</color>
 </resources>
