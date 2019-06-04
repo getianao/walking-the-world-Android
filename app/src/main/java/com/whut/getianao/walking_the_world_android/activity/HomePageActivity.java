@@ -1,17 +1,24 @@
 package com.whut.getianao.walking_the_world_android.activity;
 
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.whut.getianao.walking_the_world_android.MyApplication;
 import com.whut.getianao.walking_the_world_android.R;
 import com.whut.getianao.walking_the_world_android.fragement.DymFragement;
 import com.whut.getianao.walking_the_world_android.fragement.FriendsFragment;
 import com.whut.getianao.walking_the_world_android.fragement.MapFragment;
 import com.whut.getianao.walking_the_world_android.fragement.MineFragement;
+import com.whut.getianao.walking_the_world_android.utility.UserUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +31,24 @@ public class HomePageActivity extends AppCompatActivity {
     private NavigationTabBar navigationTabBar;
 
     private List<Fragment> fragmentList;
+    private String user;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {      //判断标志位
+                case 0:
+                    try {
+                        user=msg.getData().getString("user");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +60,36 @@ public class HomePageActivity extends AppCompatActivity {
     private void init() {
         viewPager = findViewById(R.id.home_view_pager);
         navigationTabBar = findViewById(R.id.home_navi);
-
+        getInfobyid();
         initPageView();
         initNavigationBar();
+    }
+    public void getInfobyid(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                JSONObject userJson = UserUtil.getFriendInfo(MyApplication.userId);
+                Bundle bundle = new Bundle();
+                bundle.putString("user", userJson.toString());
+                Message msg = handler.obtainMessage();//每发送一次都要重新获取
+                msg.what = 0;
+                msg.setData(bundle);
+                handler.sendMessage(msg);//用handler向主线程发送信息
+            }
+        }).start();
     }
 
 
     private void initPageView() {
         fragmentList = new ArrayList<>();
-        fragmentList.add(new MapFragment());
-        fragmentList.add(new DymFragement());
-        fragmentList.add(new FriendsFragment());
-      // fragmentList.add(new MineFragement());
+//        fragmentList.add(new MapFragment());
+//        fragmentList.add(new DymFragement());
+//        fragmentList.add(new FriendsFragment());
+        Bundle bundle = new Bundle();
+        bundle.putString("user",user);
+        MineFragement fragment=new MineFragement();
+        fragment.setArguments(bundle);//数据传递到fragment中
+       fragmentList.add(fragment);
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

@@ -62,27 +62,22 @@ public class MineFragement extends Fragment {
         view = inflater.inflate(R.layout.activity_mine, container, false);
 
        mGroupListView=view.findViewById(R.id.acyivity_mine_listitem);
-        inithead();
+        try {
+            inithead();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         initGroupListView();
 
         return view;
     }
-    public void getInfobyid(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                JSONObject userJson = UserUtil.getFriendInfo(MyApplication.userId);
-                Bundle bundle = new Bundle();
-                bundle.putString("user", userJson.toString());
-                Message msg = handler.obtainMessage();//每发送一次都要重新获取
-                msg.what = 0;
-                msg.setData(bundle);
-                handler.sendMessage(msg);//用handler向主线程发送信息
-            }
-        }).start();
+    public void getInfobyid() throws JSONException {
+        Bundle bundle =this.getArguments();//得到从Activity传来的数据
+        JSONObject userJSON = new JSONObject(bundle.getString("user"));
+        u = UserUtil.trans(userJSON);
     }
 
-    private void inithead(){
+    private void inithead() throws JSONException {
         /**
          * 获取userId
          */
