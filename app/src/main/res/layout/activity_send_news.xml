@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/sendNews_et_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="top"
+        android:minLines="1"
+        android:padding="2dp"
+        android:textColor="@color/black_alpha_128"
+        android:textSize="14sp"
+        android:hint="在这里输入活动名称..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/sendNews_et_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="top"
+        android:hint="在这里输入活动详情..."
+        android:minLines="8"
+        android:padding="2dp"
+        android:textColor="@color/black_alpha_128"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sendNews_et_title"/>
+    <ImageView
+        android:id="@+id/sendNews_iv_new_pic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sendNews_et_detail"
+        android:src="@mipmap/add_pic"
+        android:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/sendNews_iv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sendNews_iv_new_pic"
+        android:src="@drawable/ic_room_black_24dp"
+        tools:ignore="VectorDrawableCompat"
+        android:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/sendNews_tv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="这里是你的位置"
+        app:layout_constraintBottom_toBottomOf="@+id/sendNews_iv_location"
+        app:layout_constraintStart_toEndOf="@+id/sendNews_iv_location"
+        app:layout_constraintTop_toTopOf="@+id/sendNews_iv_location"
+        app:layout_constraintVertical_bias="0.6"/>
+
+
+
+</android.support.constraint.ConstraintLayout>
