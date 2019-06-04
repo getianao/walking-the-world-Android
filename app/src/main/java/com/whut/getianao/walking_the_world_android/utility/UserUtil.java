@@ -2,6 +2,7 @@ package com.whut.getianao.walking_the_world_android.utility;
 
 import com.whut.getianao.walking_the_world_android.data.User;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,7 +11,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -110,6 +113,8 @@ public class UserUtil {
             System.out.println(sb);
             // 解析服务器返回的数据，从string转为JSON
             result = new JSONObject(sb.toString());
+//            List<User> list=(List<User>)result.get("res");
+//            System.out.println();
         } catch (MalformedURLException me) {
             System.err.println("你输入的URL格式有问题！");
             me.printStackTrace();
@@ -120,6 +125,32 @@ public class UserUtil {
         }
         return result;
     }
+    public static List<User> JSON2User(JSONObject josnData)
+    {
+        List<User> users=null;
+        try {
+            JSONArray friendsList = josnData.getJSONArray("res"); //获取JSONArray
+            int length = friendsList.length();
+            users = new ArrayList<>();
+            for (int i = 0; i < length; i++) {//遍历JSONArray
+                JSONObject obj = friendsList.getJSONObject(i);
+                User user = new User();
+                user.setAge(obj.getInt("age"));
+                user.setBornPlace(obj.getString("bornPlace"));
+                user.setCompany(obj.getString("company"));
+                user.setEmail(obj.getString("email"));
+                user.setHeadUrl(obj.getString("headUrl"));
+                user.setId(Integer.valueOf(obj.getString("id")));
+                user.setName(obj.getString("name"));
+                user.setPassword(obj.getString("password"));
+                users.add(user);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
 
     /**
      * @param

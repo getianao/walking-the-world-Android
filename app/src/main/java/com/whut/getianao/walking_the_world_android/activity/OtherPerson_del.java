@@ -1,13 +1,16 @@
-package com.whut.getianao.walking_the_world_android.fragement;
+package com.whut.getianao.walking_the_world_android.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,40 +26,69 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import com.whut.getianao.walking_the_world_android.MyApplication;
 import com.whut.getianao.walking_the_world_android.R;
 import com.whut.getianao.walking_the_world_android.data.User;
+import com.whut.getianao.walking_the_world_android.utility.UserUtil;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.whut.getianao.walking_the_world_android.utility.UserUtil.getFriendInfo;
 
-public class MineFragement extends Fragment {
+public class OtherPerson_del extends AppCompatActivity {
     private QMUIGroupListView mGroupListView;
-    private View view;
     private User u;
+    private Context _this=this;
+    private ImageButton op_add;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_mine, container, false);
-
-        mGroupListView=view.findViewById(R.id.acyivity_mine_listitem);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_mine);
+        mGroupListView=findViewById(R.id.acyivity_mine_listitem);
         inithead();
         initGroupListView();
 
-        return view;
     }
     private void inithead(){
         /**
          * 获取userId
          */
-//        u = getFriendInfo(MyApplication.userId);
-        ImageView blurImageView = view.findViewById(R.id.h_back);
+        u = getFriendInfo(Integer.valueOf(getIntent().getStringExtra("id")));
+        ImageView blurImageView = findViewById(R.id.h_back);
+        op_add = findViewById(R.id.mine_bar_add);
+        op_add.setVisibility(View.VISIBLE);
+        op_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
+                new QMUIDialog.MessageDialogBuilder(_this)
+                        .setTitle("您确定删除此位用户吗？")
+                        .setMessage("")
+                        .addAction("取消", new QMUIDialogAction.ActionListener() {
+                            @Override
+                            public void onClick(QMUIDialog dialog, int index) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .addAction("确定", new QMUIDialogAction.ActionListener() {
+                            @Override
+                            public void onClick(QMUIDialog dialog, int index) {
+                                dialog.dismiss();
+                                UserUtil userUtil=new UserUtil();
+                                if ( userUtil.deleteFriend(MyApplication.userId,u.getId())!=-1) {
+                                    Toast.makeText(_this, "删除成功", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(_this, "删除失败", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .create().show();
+            }
+        });
         Glide.with(this).load( R.mipmap.head)
-                .bitmapTransform(new BlurTransformation(getContext(), 25), new CenterCrop(getContext()))
+                .bitmapTransform(new BlurTransformation((this), 25), new CenterCrop(this))
                 .into(blurImageView);
-        ImageView avatarImageView = view.findViewById(R.id.h_head);
+        ImageView avatarImageView = findViewById(R.id.h_head);
         Glide.with(this).load( R.mipmap.head)
-                .bitmapTransform(new CropCircleTransformation(getContext()))
+                .bitmapTransform(new CropCircleTransformation(this))
                 .into(avatarImageView);
 //
 //        TextView username = view.findViewById(R.id.user_name);
@@ -76,7 +108,7 @@ public class MineFragement extends Fragment {
 
 
         QMUICommonListItemView itemWithDetail = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
+                ContextCompat.getDrawable(this, R.mipmap.friends_selected),
                 "年龄",
                 null,
                 QMUICommonListItemView.HORIZONTAL,
@@ -84,7 +116,7 @@ public class MineFragement extends Fragment {
         itemWithDetail.setDetailText(String.valueOf(11));
 
         QMUICommonListItemView itemWithDetai2 = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
+                ContextCompat.getDrawable(this, R.mipmap.friends_selected),
                 "公司",
                 null,
                 QMUICommonListItemView.HORIZONTAL,
@@ -92,7 +124,7 @@ public class MineFragement extends Fragment {
         itemWithDetai2.setDetailText(String.valueOf(12));
 
         QMUICommonListItemView itemWithDetai3 = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
+                ContextCompat.getDrawable(this, R.mipmap.friends_selected),
                 "出生地",
                 null,
                 QMUICommonListItemView.HORIZONTAL,
@@ -114,8 +146,8 @@ public class MineFragement extends Fragment {
             }
         };
 
-        int size = QMUIDisplayHelper.dp2px(getContext(), 20);
-        QMUIGroupListView.newSection(getContext())
+        int size = QMUIDisplayHelper.dp2px(this, 20);
+        QMUIGroupListView.newSection(this)
                 .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
                 .addItemView(itemWithDetail, onClickListener)
                 .addItemView(itemWithDetai2, onClickListener)
@@ -128,7 +160,7 @@ public class MineFragement extends Fragment {
 //                .addTo(mGroupListView);
     }
     private void showEditTextDialog(final QMUICommonListItemView view) {
-        final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(getActivity());
+        final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(_this);
         CharSequence text = (view).getText();
         builder.setTitle(text+"")
                 .setPlaceholder("在此输入您新的"+text)
@@ -146,13 +178,14 @@ public class MineFragement extends Fragment {
                         if (text != null && text.length() > 0) {
                             view.setDetailText(text);
                             //修改用户信息
-                            Toast.makeText(getActivity(), "您的昵称: " + text, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(_this, "您的昵称: " + text, Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         } else {
-                            Toast.makeText(getActivity(), "请填入新的"+text, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(_this, "请填入新的"+text, Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
                 .create().show();
     }
+
 }
