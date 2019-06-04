@@ -192,7 +192,7 @@ public class UserUtil {
      * @param userId
      * @return
      */
-    public static User getFriendInfo(int userId) {
+    public static JSONObject getFriendInfo(int userId) {
         Map<String, Object> map = null;
         int result = -1;
         String temp;
@@ -208,7 +208,8 @@ public class UserUtil {
             System.out.println(sb);
             // 解析服务器返回的数据，从string转为JSON
             JSONObject resuleJson = new JSONObject(sb.toString());
-          return (User) resuleJson.get("res");
+
+          return resuleJson;
         } catch (MalformedURLException me) {
             System.err.println("你输入的URL格式有问题！");
             me.printStackTrace();
@@ -218,6 +219,27 @@ public class UserUtil {
             e.printStackTrace();
         }
         return null;
+    }
+    public static User trans(JSONObject josnData){
+        User user=null;
+        System.out.println(josnData);
+        try {
+            JSONArray UserArray = josnData.getJSONArray("res"); //获取JSONArray
+            JSONObject obj = UserArray.getJSONObject(0);
+            user = new User();
+            user.setAge(obj.getInt("age"));
+            user.setBornPlace(obj.getString("bornPlace"));
+            user.setCompany(obj.getString("company"));
+            user.setEmail(obj.getString("email"));
+            user.setHeadUrl(obj.getString("headUrl"));
+            user.setId(Integer.valueOf(obj.getString("id")));
+            user.setName(obj.getString("name"));
+            user.setPassword(obj.getString("password"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return user;
+
     }
 
 }

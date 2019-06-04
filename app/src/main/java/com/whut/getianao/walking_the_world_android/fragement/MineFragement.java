@@ -1,6 +1,8 @@
 package com.whut.getianao.walking_the_world_android.fragement;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
@@ -23,6 +25,10 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import com.whut.getianao.walking_the_world_android.MyApplication;
 import com.whut.getianao.walking_the_world_android.R;
 import com.whut.getianao.walking_the_world_android.data.User;
+import com.whut.getianao.walking_the_world_android.utility.UserUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -33,6 +39,24 @@ public class MineFragement extends Fragment {
     private QMUIGroupListView mGroupListView;
     private View view;
     private User u;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {      //判断标志位
+                case 0:
+                    try {
+                        JSONObject userJSON = new JSONObject(msg.getData().getString("user"));
+                        u = UserUtil.trans(userJSON);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+            }
+        }
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_mine, container, false);
@@ -43,11 +67,26 @@ public class MineFragement extends Fragment {
 
         return view;
     }
+    public void getInfobyid(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                JSONObject userJson = UserUtil.getFriendInfo(MyApplication.userId);
+                Bundle bundle = new Bundle();
+                bundle.putString("user", userJson.toString());
+                Message msg = handler.obtainMessage();//每发送一次都要重新获取
+                msg.what = 0;
+                msg.setData(bundle);
+                handler.sendMessage(msg);//用handler向主线程发送信息
+            }
+        }).start();
+    }
+
     private void inithead(){
         /**
          * 获取userId
          */
-//        u = getFriendInfo(MyApplication.userId);
+        getInfobyid();
         ImageView blurImageView = view.findViewById(R.id.h_back);
 
 
@@ -59,10 +98,10 @@ public class MineFragement extends Fragment {
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .into(avatarImageView);
 //
-//        TextView username = view.findViewById(R.id.user_name);
-//        username.setText(u.getName());
-//        TextView user_email = view.findViewById(R.id.user_email);
-//        user_email.setText(u.getEmail());
+        TextView username = view.findViewById(R.id.user_name);
+        username.setText(u.getName());
+        TextView user_email = view.findViewById(R.id.user_email);
+        user_email.setText(u.getEmail());
 //        TextView user_age = view.findViewById(R.id.user_age);
 //        user_email.setText(u.getAge());
 //        TextView user_company = view.findViewById(R.id.user_company);
@@ -81,7 +120,7 @@ public class MineFragement extends Fragment {
                 null,
                 QMUICommonListItemView.HORIZONTAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetail.setDetailText(String.valueOf(11));
+        itemWithDetail.setDetailText(String.valueOf(u.getAge()));
 
         QMUICommonListItemView itemWithDetai2 = mGroupListView.createItemView(
                 ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
@@ -89,7 +128,7 @@ public class MineFragement extends Fragment {
                 null,
                 QMUICommonListItemView.HORIZONTAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetai2.setDetailText(String.valueOf(12));
+        itemWithDetai2.setDetailText(String.valueOf(u.getCompany()));
 
         QMUICommonListItemView itemWithDetai3 = mGroupListView.createItemView(
                 ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
@@ -97,7 +136,7 @@ public class MineFragement extends Fragment {
                 null,
                 QMUICommonListItemView.HORIZONTAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetai3.setDetailText(String.valueOf(13));
+        itemWithDetai3.setDetailText(String.valueOf(u.getBornPlace()));
 
 
 

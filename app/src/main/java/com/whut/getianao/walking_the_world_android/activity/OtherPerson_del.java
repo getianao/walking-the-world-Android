@@ -2,6 +2,8 @@ package com.whut.getianao.walking_the_world_android.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +30,9 @@ import com.whut.getianao.walking_the_world_android.R;
 import com.whut.getianao.walking_the_world_android.data.User;
 import com.whut.getianao.walking_the_world_android.utility.UserUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -38,6 +43,32 @@ public class OtherPerson_del extends AppCompatActivity {
     private User u;
     private Context _this=this;
     private ImageButton op_add;
+    private int res=0;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {      //判断标志位
+                case 0:
+                    try {
+                        res = new Integer(msg.getData().getString("result"));
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                case 1:
+                    try {
+                        JSONObject userJSON = new JSONObject(msg.getData().getString("user"));
+                        u = UserUtil.trans(userJSON);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+            }
+        }
+    };
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,11 +78,41 @@ public class OtherPerson_del extends AppCompatActivity {
         initGroupListView();
 
     }
+
+
+    public void Friend_del( final int friendsid){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int  res = UserUtil.addFriend(MyApplication.userId,friendsid);
+                Bundle bundle = new Bundle();
+                bundle.putString("result", String.valueOf(res));
+                Message msg = handler.obtainMessage();//每发送一次都要重新获取
+                msg.what = 0;
+                msg.setData(bundle);
+                handler.sendMessage(msg);//用handler向主线程发送信息
+            }
+        }).start();
+    }
+    public void getInfobyid(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                JSONObject userJson = UserUtil.getFriendInfo(Integer.valueOf(getIntent().getStringExtra("id")));
+                Bundle bundle = new Bundle();
+                bundle.putString("user", userJson.toString());
+                Message msg = handler.obtainMessage();//每发送一次都要重新获取
+                msg.what = 1;
+                msg.setData(bundle);
+                handler.sendMessage(msg);//用handler向主线程发送信息
+            }
+        }).start();
+    }
     private void inithead(){
         /**
          * 获取userId
          */
-        u = getFriendInfo(Integer.valueOf(getIntent().getStringExtra("id")));
+        getInfobyid();
         ImageView blurImageView = findViewById(R.id.h_back);
         op_add = findViewById(R.id.mine_bar_add);
         op_add.setVisibility(View.VISIBLE);
@@ -72,8 +133,9 @@ public class OtherPerson_del extends AppCompatActivity {
                             @Override
                             public void onClick(QMUIDialog dialog, int index) {
                                 dialog.dismiss();
-                                UserUtil userUtil=new UserUtil();
-                                if ( userUtil.deleteFriend(MyApplication.userId,u.getId())!=-1) {
+                               Friend_del(u.getId());
+
+                                if ( res!=-1) {
                                     Toast.makeText(_this, "删除成功", Toast.LENGTH_SHORT).show();
                                 }else {
                                     Toast.makeText(_this, "删除失败", Toast.LENGTH_SHORT).show();
