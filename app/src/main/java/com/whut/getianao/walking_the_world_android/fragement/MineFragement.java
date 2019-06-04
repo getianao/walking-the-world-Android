@@ -61,7 +61,7 @@ public class MineFragement extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_mine, container, false);
 
-        mGroupListView=view.findViewById(R.id.acyivity_mine_listitem);
+       mGroupListView=view.findViewById(R.id.acyivity_mine_listitem);
         inithead();
         initGroupListView();
 

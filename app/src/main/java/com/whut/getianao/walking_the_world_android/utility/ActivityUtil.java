@@ -1,5 +1,12 @@
 package com.whut.getianao.walking_the_world_android.utility;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import com.whut.getianao.walking_the_world_android.data.Dym;
+import com.whut.getianao.walking_the_world_android.data.User;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,6 +19,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -78,6 +88,34 @@ public class ActivityUtil {
         return 1;
     }
 
+
+    public static List<Dym> JSON2Activity(JSONObject josnData)
+    {
+        List<Dym> dyms=null;
+        try {
+            JSONArray dymsList = josnData.getJSONArray("res"); //获取JSONArray
+            int length = dymsList.length();
+            dyms = new ArrayList<>();
+            for (int i = 0; i < length; i++) {//遍历JSONArray
+                JSONObject obj = dymsList.getJSONObject(i);
+                Dym dym = new Dym();
+                dym.setCreatedTime(new Date(Long.parseLong(obj.getString("createdTime"))));
+                dym.setId(obj.getInt("id"));
+                dym.setImgUrls(obj.getString("imgUrls"));
+                dym.setLikeCount(obj.getInt("likeCount"));
+                dym.setStatus(obj.getInt("status"));
+                dym.setText(obj.getString("text"));
+                dym.setTitle(obj.getString("title"));
+                dym.setUserId(obj.getInt("userId"));
+                dyms.add(dym);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return dyms;
+    }
+
+
     /**
      * @param
      * @return 0--成功 1--失败
@@ -85,7 +123,7 @@ public class ActivityUtil {
      * @author Liu Zhian
      * @time 2019/6/3 0003 上午 8:45
      */
-    public static JSONObject getAllActivities(int userId) {
+        public static JSONObject getAllActivities(int userId) {
         JSONObject result = null;
         String temp;
         StringBuilder sb = new StringBuilder();
@@ -245,4 +283,25 @@ public class ActivityUtil {
         return resultCode;
 
     }
+
+    //加载图片
+    public static Bitmap getURLimage(String url) {
+        Bitmap bmp = null;
+        try {
+            URL myurl = new URL(url);
+            // 获得连接
+            HttpURLConnection conn = (HttpURLConnection) myurl.openConnection();
+            conn.setConnectTimeout(6000);//设置超时
+            conn.setDoInput(true);
+            conn.setUseCaches(false);//不缓存
+            conn.connect();
+            InputStream is = conn.getInputStream();//获得图片的数据流
+            bmp = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bmp;
+    }
+
 }

@@ -76,10 +76,7 @@ public class Dym {
         this.status = status;
     }
 
-    public Dym(String title, String text) {
-        this.title = title;
-        this.text = text;
-    }
+
 }
 
 

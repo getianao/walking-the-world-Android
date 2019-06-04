@@ -2,26 +2,16 @@ package com.whut.getianao.walking_the_world_android.activity;
 
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.whut.getianao.walking_the_world_android.R;
-import com.whut.getianao.walking_the_world_android.adapter.TabFragmentPagerAdapter;
+import com.whut.getianao.walking_the_world_android.fragement.DymFragement;
 import com.whut.getianao.walking_the_world_android.fragement.FriendsFragment;
 import com.whut.getianao.walking_the_world_android.fragement.MapFragment;
 import com.whut.getianao.walking_the_world_android.fragement.MineFragement;
-import com.whut.getianao.walking_the_world_android.fragement.TabFragement01;
-import com.whut.getianao.walking_the_world_android.fragement.TabFragement02;
-import com.whut.getianao.walking_the_world_android.fragement.TabFragement03;
-import com.whut.getianao.walking_the_world_android.fragement.TabFragement04;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +44,9 @@ public class HomePageActivity extends AppCompatActivity {
     private void initPageView() {
         fragmentList = new ArrayList<>();
         fragmentList.add(new MapFragment());
-        fragmentList.add(new TabFragement02());
+        fragmentList.add(new DymFragement());
         fragmentList.add(new FriendsFragment());
-        fragmentList.add(new MineFragement());
+      // fragmentList.add(new MineFragement());
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -108,7 +98,7 @@ public class HomePageActivity extends AppCompatActivity {
 
 
         navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(viewPager, 0);
+        navigationTabBar.setViewPager(viewPager, 2);
 
         navigationTabBar.setTitleMode(NavigationTabBar.TitleMode.ACTIVE);
 //        navigationTabBar.setBadgeGravity(NavigationTabBar.BadgeGravity.BOTTOM);

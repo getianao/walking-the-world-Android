@@ -76,9 +76,8 @@
             android:theme="@style/Account_Base.App.Theme.NoTitle"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".activity.ShareActivity"/>
-        <activity android:name=".activity.TabActivity"/>
         <activity android:name=".activity.FriendsSearchActivity"
-            android:theme="@style/Account_Base.App.Theme.NoTitle"/>
+                  android:theme="@style/Account_Base.App.Theme.NoTitle"/>
         <activity android:name=".activity.AddFriendActivity"
             android:theme="@style/Account_Base.App.Theme.NoTitle"/>
         <activity android:name=".activity.HomePageActivity"
