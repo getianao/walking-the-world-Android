@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> <!-- 获取wifi网络状态的信息 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/> <!-- 获取sd卡写的权限，用于文件上传和下载 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> <!-- 允许读取手机状态 用于创建BmobInstallation -->
+
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/> <!-- 允许访问相机 -->
     <uses-permission android:name="android.permission.CAMERA"/> <!-- 百度地图相关权限 -->
     <!-- //获取设备网络状态，禁用后无法获取网络状态 -->
@@ -30,10 +30,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service android:name="com.baidu.location.f"
+                 android:enabled="true"
+                 android:process=":remote"/>
         <activity android:name=".activity.MineActivity"
             android:theme="@style/Account_Base.App.Theme.NoTitle">
         </activity>
         <activity android:name=".activity.MapActivity">
+        </activity>
+
+        <activity android:name=".activity.AddNewsActivity">
+
         </activity>
 
         <meta-data
@@ -49,10 +56,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Account_Base.App.Theme.NoTitle"
             android:windowSoftInputMode="stateHidden|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
 
         </activity>
         <activity
@@ -73,19 +77,19 @@
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".activity.ShareActivity"/>
         <activity android:name=".activity.TabActivity"/>
-        <activity android:name=".activity.UserInfoActivity"/>
-        <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.FriendsSearchActivity"
             android:theme="@style/Account_Base.App.Theme.NoTitle"/>
         <activity android:name=".activity.AddFriendActivity"
             android:theme="@style/Account_Base.App.Theme.NoTitle"/>
         <activity android:name=".activity.HomePageActivity"
             android:theme="@style/Account_Base.App.Theme.NoTitle">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
-        <provider
-            android:name="cn.bmob.v3.util.BmobContentProvider"
-            android:authorities="com.whut.getianao.walking_the_world_android.BmobContentProvider"/>
+
     </application>
 
 </manifest>
