@@ -18,7 +18,7 @@
             android:layout_width="fill_parent"
             android:layout_height="45dp"
             android:layout_marginBottom="3dp"
-            android:background="#2B4058"
+            android:background="@color/account_input_bg_color"
             android:gravity="center_vertical">
 
             <ImageView

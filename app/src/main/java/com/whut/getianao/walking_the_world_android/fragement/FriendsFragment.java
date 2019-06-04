@@ -19,7 +19,6 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import com.whut.getianao.walking_the_world_android.MyApplication;
 import com.whut.getianao.walking_the_world_android.R;
 import com.whut.getianao.walking_the_world_android.activity.AddFriendActivity;
-import com.whut.getianao.walking_the_world_android.activity.FriendActivity;
 import com.whut.getianao.walking_the_world_android.activity.FriendsSearchActivity;
 import com.whut.getianao.walking_the_world_android.activity.HomePageActivity;
 import com.whut.getianao.walking_the_world_android.activity.OtherPerson_del;
