@@ -31,24 +31,6 @@ public class HomePageActivity extends AppCompatActivity {
     private NavigationTabBar navigationTabBar;
 
     private List<Fragment> fragmentList;
-    private String user;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {      //判断标志位
-                case 0:
-                    try {
-                        user=msg.getData().getString("user");
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,33 +46,15 @@ public class HomePageActivity extends AppCompatActivity {
         initPageView();
         initNavigationBar();
     }
-    public void getInfobyid(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("123");
-                JSONObject userJson = UserUtil.getFriendInfo(MyApplication.userId);
-                Bundle bundle = new Bundle();
-                bundle.putString("user", userJson.toString());
-                Message msg = handler.obtainMessage();//每发送一次都要重新获取
-                msg.what = 0;
-                msg.setData(bundle);
-                handler.sendMessage(msg);//用handler向主线程发送信息
-            }
-        }).start();
-    }
 
 
     private void initPageView() {
         fragmentList = new ArrayList<>();
         fragmentList.add(new MapFragment());
         fragmentList.add(new DymFragement());
-//        fragmentList.add(new FriendsFragment());
-//        Bundle bundle = new Bundle();
-//        bundle.putString("user",user);
-//        MineFragement fragment=new MineFragement();
-//        fragment.setArguments(bundle);//数据传递到fragment中
-//       fragmentList.add(fragment);
+
+       fragmentList.add( new MineFragement());
+
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

@@ -38,7 +38,7 @@ import static com.whut.getianao.walking_the_world_android.utility.UserUtil.getFr
 public class MineFragement extends Fragment {
     private QMUIGroupListView mGroupListView;
     private View view;
-    private User u;
+    private  User u;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -48,7 +48,7 @@ public class MineFragement extends Fragment {
                     try {
                         JSONObject userJSON = new JSONObject(msg.getData().getString("user"));
                         u = UserUtil.trans(userJSON);
-
+                        inithead();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -62,29 +62,44 @@ public class MineFragement extends Fragment {
         view = inflater.inflate(R.layout.activity_mine, container, false);
 
        mGroupListView=view.findViewById(R.id.acyivity_mine_listitem);
+
         try {
-            inithead();
+            inituser();
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         initGroupListView();
 
         return view;
     }
-    public void getInfobyid() throws JSONException {
-        Bundle bundle =this.getArguments();//得到从Activity传来的数据
-        JSONObject userJSON = new JSONObject(bundle.getString("user"));
-        u = UserUtil.trans(userJSON);
+    public void getInfo() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+//                JSONObject userJson = getFriendInfo(MyApplication.userId);
+                Bundle bundle = new Bundle();
+                //userJson.toString()
+                bundle.putString("user","123" );
+                Message msg = handler.obtainMessage();//每发送一次都要重新获取
+                msg.what = 0;
+                msg.setData(bundle);
+                handler.sendMessage(msg);//用handler向主线程发送信息
+                handler.handleMessage(msg);
+            }
+        }).run();
+
     }
 
-    private void inithead() throws JSONException {
+    private void inituser() throws JSONException {
         /**
          * 获取userId
          */
-        getInfobyid();
+        getInfo();
+
+    }
+    private void inithead(){
         ImageView blurImageView = view.findViewById(R.id.h_back);
-
-
         Glide.with(this).load( R.mipmap.head)
                 .bitmapTransform(new BlurTransformation(getContext(), 25), new CenterCrop(getContext()))
                 .into(blurImageView);
@@ -92,22 +107,19 @@ public class MineFragement extends Fragment {
         Glide.with(this).load( R.mipmap.head)
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .into(avatarImageView);
-//
+
         TextView username = view.findViewById(R.id.user_name);
         username.setText(u.getName());
         TextView user_email = view.findViewById(R.id.user_email);
         user_email.setText(u.getEmail());
-//        TextView user_age = view.findViewById(R.id.user_age);
-//        user_email.setText(u.getAge());
-//        TextView user_company = view.findViewById(R.id.user_company);
-//        user_email.setText(u.getCompany());
-//        TextView user_bornPlace = view.findViewById(R.id.user_bornPlace());
-//        user_email.setText(u.getBornPlace());
     }
 
 
     private void initGroupListView() {
 
+        while (u == null) {
+            ;
+        }
 
         QMUICommonListItemView itemWithDetail = mGroupListView.createItemView(
                 ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
