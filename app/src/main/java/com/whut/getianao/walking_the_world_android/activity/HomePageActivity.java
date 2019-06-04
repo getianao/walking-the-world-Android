@@ -60,7 +60,7 @@ public class HomePageActivity extends AppCompatActivity {
     private void init() {
         viewPager = findViewById(R.id.home_view_pager);
         navigationTabBar = findViewById(R.id.home_navi);
-        getInfobyid();
+//        getInfobyid();
         initPageView();
         initNavigationBar();
     }
@@ -68,6 +68,7 @@ public class HomePageActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                System.out.println("123");
                 JSONObject userJson = UserUtil.getFriendInfo(MyApplication.userId);
                 Bundle bundle = new Bundle();
                 bundle.putString("user", userJson.toString());
@@ -82,14 +83,14 @@ public class HomePageActivity extends AppCompatActivity {
 
     private void initPageView() {
         fragmentList = new ArrayList<>();
-//        fragmentList.add(new MapFragment());
-//        fragmentList.add(new DymFragement());
+        fragmentList.add(new MapFragment());
+        fragmentList.add(new DymFragement());
 //        fragmentList.add(new FriendsFragment());
-        Bundle bundle = new Bundle();
-        bundle.putString("user",user);
-        MineFragement fragment=new MineFragement();
-        fragment.setArguments(bundle);//数据传递到fragment中
-       fragmentList.add(fragment);
+//        Bundle bundle = new Bundle();
+//        bundle.putString("user",user);
+//        MineFragement fragment=new MineFragement();
+//        fragment.setArguments(bundle);//数据传递到fragment中
+//       fragmentList.add(fragment);
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

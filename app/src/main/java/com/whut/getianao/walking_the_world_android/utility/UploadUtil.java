@@ -40,16 +40,16 @@ public class UploadUtil {
      * 上传文件到服务器
      *
      * @param file       需要上传的文件
-     * @param RequestURL 请求的rul
+     * @param
      * @return 返回响应的内容 JSON格式
      */
-    public static JSONObject uploadFile(File file, String RequestURL) {
+    public static JSONObject uploadFile(File file) {
         JSONObject result = null;
         String BOUNDARY = UUID.randomUUID().toString(); // 边界标识 随机生成
         String PREFIX = "--", LINE_END = "\r\n";
         String CONTENT_TYPE = "multipart/form-data"; // 内容类型
         try {
-            URL url = new URL(RequestURL);
+            URL url = new URL("http://10.120.174.62:8080/image/upload");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(TIME_OUT);
             conn.setConnectTimeout(TIME_OUT);

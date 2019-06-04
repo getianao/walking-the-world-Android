@@ -177,7 +177,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Adapt
         TextView titleStr = view.findViewById(R.id.textViewAddress);  // 根据pos得到地址信息
         // 跳转到发布动态页面
         Intent intent = new Intent(getContext(),AddNewsActivity.class);
-        intent.putExtra("location",titleStr.toString());
+        intent.putExtra("location",titleStr.getText().toString());
         startActivity(intent);
 
         // String str = locationsList.get(position).getTitle(); // 根据pos得到数据
@@ -209,8 +209,6 @@ public class MapFragment extends Fragment implements View.OnClickListener, Adapt
                 mBaiduMap.setMyLocationData(locData);
                 isFirst = !isFirst;
             }
-
-
         }
     }
 

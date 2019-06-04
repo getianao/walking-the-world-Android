@@ -169,7 +169,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                             // 在这里进行 http request.网络请求相关操作
                             File file = new File(picPath);
                             // 上传文件到服务器,返回的结果是一个json数据
-                            JSONObject result = UploadUtil.uploadFile(file, requestURL);
+                            JSONObject result = UploadUtil.uploadFile(file);
                             Message msg = new Message();
                             Bundle data = new Bundle();
                             try {
