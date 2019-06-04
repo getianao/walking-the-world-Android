@@ -1,14 +1,14 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+     Base application theme.
+    <style name="AppTheme" parent="QMUI.Compat">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <!--base theme light-->
-    <style name="Base.App.Theme.Light" parent="@style/Theme.AppCompat.Light">
+    base theme light
+    <style name="Base.App.Theme.Light" parent="QMUI.Compat">
 
     </style>
     <!-- 日间模式 -->
@@ -24,5 +24,8 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+
+
+
 
 </resources>

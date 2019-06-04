@@ -15,7 +15,6 @@
         android:background="@drawable/bg_login_navigation_bar"
         android:contentDescription="@null"
         app:srcCompat="@mipmap/btn_back_normal" />
-
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -25,7 +24,28 @@
         android:textColor="@color/white"
         android:textSize="25sp"
         android:visibility="visible" />
-
-
-
+    <AbsoluteLayout
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content">
+        <ImageButton
+            android:id="@+id/mine_bar_add"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_login_navigation_bar"
+            android:contentDescription="@null"
+            app:srcCompat="@mipmap/friends_add"
+            android:visibility="invisible"/>
+        <ImageButton
+            android:id="@+id/mine_bar_del"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_login_navigation_bar"
+            android:contentDescription="@null"
+            app:srcCompat="@mipmap/del"
+            android:visibility="invisible"/>
+    </AbsoluteLayout>
+    <Space
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0" />
 </LinearLayout>
