@@ -34,16 +34,30 @@ public class AddNewsActivity extends Activity {
     private Context _this=this;
 
     private TextView tv_title;
-    private TextView tv_detail;
+    private TextView tv_detail,tv_location;
     private ImageView im_addPic;
+
+    String loc; // location
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_news);
+
+        //获取Map Fragment传过来的值
+        Intent intent = getIntent();
+        loc= intent.getStringExtra("location");
+        if (loc!=null)
+        {
+            // 设置location
+            tv_location=findViewById(R.id.sendNews_tv_location);
+            tv_location.setText(loc);
+        }
         tv_title=findViewById(R.id.sendNews_et_title);
         tv_detail=findViewById(R.id.sendNews_et_detail);
         im_addPic=findViewById(R.id.sendNews_iv_new_pic);
+
+
         initAddpic();
     }
 

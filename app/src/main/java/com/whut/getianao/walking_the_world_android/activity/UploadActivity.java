@@ -29,7 +29,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
+
 import com.whut.getianao.walking_the_world_android.R;
 import com.whut.getianao.walking_the_world_android.utility.ActivityUtil;
 import com.whut.getianao.walking_the_world_android.utility.UploadUtil;
