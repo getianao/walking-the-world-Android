@@ -38,7 +38,7 @@ import static com.whut.getianao.walking_the_world_android.utility.UserUtil.getFr
 public class MineFragement extends Fragment {
     private QMUIGroupListView mGroupListView;
     private View view;
-    private  User u;
+    private  volatile User u;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -48,7 +48,6 @@ public class MineFragement extends Fragment {
                     try {
                         JSONObject userJSON = new JSONObject(msg.getData().getString("user"));
                         u = UserUtil.trans(userJSON);
-                        inithead();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -63,48 +62,42 @@ public class MineFragement extends Fragment {
 
        mGroupListView=view.findViewById(R.id.acyivity_mine_listitem);
 
-        try {
-            inituser();
-        } catch (JSONException e) {
-            e.printStackTrace();
+        inituser();
+        while (u==null){
+            ;
         }
-
+        inithead();
         initGroupListView();
 
         return view;
     }
-    public void getInfo() {
+
+
+    private void inituser(){
         new Thread(new Runnable() {
             @Override
             public void run() {
-//                JSONObject userJson = getFriendInfo(MyApplication.userId);
+                JSONObject userJson = getFriendInfo(MyApplication.userId);
                 Bundle bundle = new Bundle();
-                //userJson.toString()
-                bundle.putString("user","123" );
+                bundle.putString("user",userJson.toString() );
                 Message msg = handler.obtainMessage();//每发送一次都要重新获取
                 msg.what = 0;
                 msg.setData(bundle);
                 handler.sendMessage(msg);//用handler向主线程发送信息
                 handler.handleMessage(msg);
             }
-        }).run();
-
-    }
-
-    private void inituser() throws JSONException {
-        /**
-         * 获取userId
-         */
-        getInfo();
+        }).start();
 
     }
     private void inithead(){
         ImageView blurImageView = view.findViewById(R.id.h_back);
-        Glide.with(this).load( R.mipmap.head)
+        String uuuurl="http://192.168.1.102:8080/";
+        System.out.println(uuuurl+u.getHeadUrl());
+        Glide.with(this).load(uuuurl+u.getHeadUrl().replace("\r\n",""))
                 .bitmapTransform(new BlurTransformation(getContext(), 25), new CenterCrop(getContext()))
                 .into(blurImageView);
         ImageView avatarImageView = view.findViewById(R.id.h_head);
-        Glide.with(this).load( R.mipmap.head)
+        Glide.with(this).load( uuuurl+u.getHeadUrl().replace("\r\n",""))
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .into(avatarImageView);
 

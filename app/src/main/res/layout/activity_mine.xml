@@ -17,6 +17,14 @@
         android:id="@+id/ly_mine_bar"
         layout="@layout/activity_mine_bar" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ly_mine_bar">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -24,13 +32,16 @@
             android:layout_marginTop="0dp"
             android:background="@color/transparent"
             android:fitsSystemWindows="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <include
                         android:id="@+id/ly_mine_head"
                         layout="@layout/activity_mine_head" />
@@ -40,8 +51,10 @@
                     android:id="@+id/acyivity_mine_listitem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/qmui_config_color_background"/>
+                    android:background="@color/qmui_config_color_background" />
             </LinearLayout>
         </ScrollView>
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
 

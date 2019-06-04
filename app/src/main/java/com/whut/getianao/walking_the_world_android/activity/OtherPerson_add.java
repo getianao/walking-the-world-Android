@@ -89,6 +89,7 @@ public class OtherPerson_add extends AppCompatActivity {
                 msg.what = 1;
                 msg.setData(bundle);
                 handler.sendMessage(msg);//用handler向主线程发送信息
+                handler.handleMessage(msg);
             }
         }).start();
     }
@@ -97,6 +98,9 @@ public class OtherPerson_add extends AppCompatActivity {
          * 获取userId
          */
         getInfobyid();
+        while (u==null){
+            ;
+        }
 
         op_add = findViewById(R.id.mine_bar_add);
         op_add.setVisibility(View.VISIBLE);
@@ -174,7 +178,7 @@ public class OtherPerson_add extends AppCompatActivity {
                 null,
                 QMUICommonListItemView.HORIZONTAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetail.setDetailText(String.valueOf(11));
+        itemWithDetail.setDetailText(String.valueOf(u.getAge()));
 
         QMUICommonListItemView itemWithDetai2 = mGroupListView.createItemView(
                 ContextCompat.getDrawable(this, R.mipmap.friends_selected),
@@ -182,7 +186,7 @@ public class OtherPerson_add extends AppCompatActivity {
                 null,
                 QMUICommonListItemView.HORIZONTAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetai2.setDetailText(String.valueOf(12));
+        itemWithDetai2.setDetailText(String.valueOf(u.getCompany()));
 
         QMUICommonListItemView itemWithDetai3 = mGroupListView.createItemView(
                 ContextCompat.getDrawable(this, R.mipmap.friends_selected),
@@ -190,7 +194,7 @@ public class OtherPerson_add extends AppCompatActivity {
                 null,
                 QMUICommonListItemView.HORIZONTAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetai3.setDetailText(String.valueOf(13));
+        itemWithDetai3.setDetailText(String.valueOf(u.getBornPlace()));
 
 
 
@@ -202,7 +206,7 @@ public class OtherPerson_add extends AppCompatActivity {
 //                    CharSequence text = ((QMUICommonListItemView) v).getText();
 //                    Toast.makeText(getActivity(), text + " is Clicked", Toast.LENGTH_SHORT).show();
 //
-                    showEditTextDialog((QMUICommonListItemView) v);
+//                    showEditTextDialog((QMUICommonListItemView) v);
                 }
             }
         };

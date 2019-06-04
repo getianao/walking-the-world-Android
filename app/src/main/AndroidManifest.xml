@@ -36,10 +36,20 @@
         <activity android:name=".activity.MineActivity"
             android:theme="@style/Account_Base.App.Theme.NoTitle">
         </activity>
-        <activity android:name=".activity.MapActivity">
+        <activity android:name=".activity.MapActivity"
+            android:theme="@style/Account_Base.App.Theme.NoTitle">
         </activity>
 
-        <activity android:name=".activity.AddNewsActivity">
+        <activity android:name=".activity.AddNewsActivity"
+            android:theme="@style/Account_Base.App.Theme.NoTitle">
+
+        </activity>
+        <activity android:name=".activity.OtherPerson_add"
+            android:theme="@style/Account_Base.App.Theme.NoTitle">
+
+        </activity>
+        <activity android:name=".activity.OtherPerson_del"
+            android:theme="@style/Account_Base.App.Theme.NoTitle">
 
         </activity>
 
@@ -75,7 +85,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/Account_Base.App.Theme.NoTitle"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
-        <activity android:name=".activity.ShareActivity"/>
+        <activity android:name=".activity.ShareActivity"
+            android:theme="@style/Account_Base.App.Theme.NoTitle"/>
         <activity android:name=".activity.FriendsSearchActivity"
                   android:theme="@style/Account_Base.App.Theme.NoTitle"/>
         <activity android:name=".activity.AddFriendActivity"

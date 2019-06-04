@@ -51,8 +51,8 @@ public class HomePageActivity extends AppCompatActivity {
     private void initPageView() {
         fragmentList = new ArrayList<>();
         fragmentList.add(new MapFragment());
-        fragmentList.add(new DymFragement());
-
+//        fragmentList.add(new DymFragement());
+        fragmentList.add(new FriendsFragment());
        fragmentList.add( new MineFragement());
 
 

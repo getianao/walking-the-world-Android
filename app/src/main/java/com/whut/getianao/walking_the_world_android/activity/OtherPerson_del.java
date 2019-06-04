@@ -84,7 +84,7 @@ public class OtherPerson_del extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int  res = UserUtil.addFriend(MyApplication.userId,friendsid);
+                int  res = UserUtil.deleteFriend(MyApplication.userId,friendsid);
                 Bundle bundle = new Bundle();
                 bundle.putString("result", String.valueOf(res));
                 Message msg = handler.obtainMessage();//每发送一次都要重新获取
@@ -105,6 +105,7 @@ public class OtherPerson_del extends AppCompatActivity {
                 msg.what = 1;
                 msg.setData(bundle);
                 handler.sendMessage(msg);//用handler向主线程发送信息
+                handler.handleMessage(msg);
             }
         }).start();
     }
@@ -113,8 +114,11 @@ public class OtherPerson_del extends AppCompatActivity {
          * 获取userId
          */
         getInfobyid();
+        while (u==null){
+            ;
+        }
         ImageView blurImageView = findViewById(R.id.h_back);
-        op_add = findViewById(R.id.mine_bar_add);
+        op_add = findViewById(R.id.mine_bar_del);
         op_add.setVisibility(View.VISIBLE);
         op_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,7 +207,7 @@ public class OtherPerson_del extends AppCompatActivity {
 //                    CharSequence text = ((QMUICommonListItemView) v).getText();
 //                    Toast.makeText(getActivity(), text + " is Clicked", Toast.LENGTH_SHORT).show();
 //
-                    showEditTextDialog((QMUICommonListItemView) v);
+//                    showEditTextDialog((QMUICommonListItemView) v);
                 }
             }
         };

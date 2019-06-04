@@ -28,12 +28,14 @@ public class UserUtil {
      * @author Liu Zhian
      * @time 2019/6/3 0003 下午 12:00
      */
+     static public String uuuurl="http://192.168.1.102:8080";
+    // "http://10.120.174.62:8080"
     public static int addFriend(int userId, int friendId) {
         int result = -1;
         String temp;
         StringBuilder sb = new StringBuilder();
         try {
-            URL url = new URL(String.format("http://10.120.174.62:8080/friendship/add?userId=%d&friendId=%d", userId, friendId));
+            URL url = new URL(String.format(uuuurl+"/friendship/add?userId=%d&friendId=%d", userId, friendId));
             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));// 获取输入流
             while ((temp = in.readLine()) != null) {
                 sb.append(temp);
@@ -68,7 +70,7 @@ public class UserUtil {
         String temp;
         StringBuilder sb = new StringBuilder();
         try {
-            URL url = new URL(String.format("http://10.120.174.62:8080/friendship/delete?userId=%d&friendId=%d", userId, friendId));
+            URL url = new URL(String.format(uuuurl+"/friendship/delete?userId=%d&friendId=%d", userId, friendId));
             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));// 获取输入流
             while ((temp = in.readLine()) != null) {
                 sb.append(temp);
@@ -103,7 +105,7 @@ public class UserUtil {
         String temp;
         StringBuilder sb = new StringBuilder();
         try {
-            URL url = new URL(String.format("http://10.120.174.62:8080/friendship/getAllFriends?userId=%d", userId)); // 这里要改
+            URL url = new URL(String.format(uuuurl+"/friendship/getAllFriends?userId=%d", userId)); // 这里要改
             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));// 获取输入流
             while ((temp = in.readLine()) != null) {
                 sb.append(temp);
@@ -164,7 +166,7 @@ public class UserUtil {
         String temp;
         StringBuilder sb = new StringBuilder();
         try {
-            URL url = new URL(String.format("http://10.120.174.62:8080/friendship/find?email=%s", email));
+            URL url = new URL(String.format(uuuurl+"/friendship/find?email=%s", email));
             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));// 获取输入流
             while ((temp = in.readLine()) != null) {
                 sb.append(temp);
@@ -198,7 +200,7 @@ public class UserUtil {
         String temp;
         StringBuilder sb = new StringBuilder();
         try {
-            URL url = new URL(String.format("http://10.120.174.62:8080/user/getInfo?userId=%d", userId));
+            URL url = new URL(String.format(uuuurl+"/user/getInfo?userId=%d", userId));
             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));// 获取输入流
             while ((temp = in.readLine()) != null) {
                 sb.append(temp);
@@ -224,8 +226,7 @@ public class UserUtil {
         User user=null;
         System.out.println(josnData);
         try {
-            JSONArray UserArray = josnData.getJSONArray("res"); //获取JSONArray
-            JSONObject obj = UserArray.getJSONObject(0);
+            JSONObject obj = josnData.getJSONObject("res"); //获取JSONArray
             user = new User();
             user.setAge(obj.getInt("age"));
             user.setBornPlace(obj.getString("bornPlace"));

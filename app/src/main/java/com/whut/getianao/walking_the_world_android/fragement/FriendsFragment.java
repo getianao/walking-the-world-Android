@@ -122,7 +122,12 @@ public class FriendsFragment extends Fragment {
         });
 
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        initGroupListView();
 
+    }
     private void initGroupListView() {
 
         new Thread(new Runnable() {
