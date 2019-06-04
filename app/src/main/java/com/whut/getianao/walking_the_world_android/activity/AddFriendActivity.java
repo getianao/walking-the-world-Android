@@ -32,6 +32,7 @@ public class AddFriendActivity extends AppCompatActivity{
         imageView_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String username=friends_add_search_text.getText().toString().trim();
             }
         });

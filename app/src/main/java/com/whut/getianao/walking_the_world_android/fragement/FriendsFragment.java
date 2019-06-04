@@ -30,6 +30,7 @@ public class FriendsFragment extends Fragment {
     private ImageView imageViewadd;
     private ImageView imageViewsearch;
     private String userid;
+    private  List<User> list;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_friends, container, false);
@@ -59,35 +60,41 @@ public class FriendsFragment extends Fragment {
 
     }
     private void initGroupListView() {
-        List<User> list=UserUtil.JSON2User(UserUtil.allFriends(MyApplication.userId));
-        QMUICommonListItemView[] items=new QMUICommonListItemView[list.size()];
-        for (int i=0;i<list.size();i++) {
-            User user = list.get(i);
-            items[i]=mGroupListView.createItemView(
-                    ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
-                    "name",
-                    null,
-                    QMUICommonListItemView.HORIZONTAL,
-                    QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-            items[i].setDetailText(user.getName());
-            userid=String.valueOf(user.getId());
-            View.OnClickListener onClickListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v instanceof QMUICommonListItemView) {
-                        Intent intent = new Intent(getContext(), OtherPerson_del.class);
-                        intent.putExtra("id",userid);
-                        startActivity(intent);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                list=UserUtil.JSON2User(UserUtil.allFriends(MyApplication.userId));
+            }
+        }).start();
+        if (list.size()>0) {
+            QMUICommonListItemView[] items = new QMUICommonListItemView[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                User user = list.get(i);
+                items[i] = mGroupListView.createItemView(
+                        ContextCompat.getDrawable(getContext(), R.mipmap.friends_selected),
+                        "name",
+                        null,
+                        QMUICommonListItemView.HORIZONTAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+                items[i].setDetailText(user.getName());
+                userid = String.valueOf(user.getId());
+                View.OnClickListener onClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (v instanceof QMUICommonListItemView) {
+                            Intent intent = new Intent(getContext(), OtherPerson_del.class);
+                            intent.putExtra("id", userid);
+                            startActivity(intent);
+                        }
                     }
-                }
-            };
-            int size = QMUIDisplayHelper.dp2px(getContext(), 20);
-            QMUIGroupListView.newSection(getContext())
-                    .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .addItemView(items[i], onClickListener)
-                    .addTo(mGroupListView);
+                };
+                int size = QMUIDisplayHelper.dp2px(getContext(), 20);
+                QMUIGroupListView.newSection(getContext())
+                        .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
+                        .addItemView(items[i], onClickListener)
+                        .addTo(mGroupListView);
+            }
         }
-
 
 
 //        QMUIGroupListView.newSection(getContext())
