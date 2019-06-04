@@ -13,7 +13,7 @@
         android:layout_height="48dp" />
 
     <EditText
-        android:id="@+id/et_login_username"
+        android:id="@+id/friends_add_search_text"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
@@ -36,7 +36,7 @@
         android:textSize="@dimen/font_16" />
 
     <ImageView
-        android:id="@+id/iv_login_username_del"
+        android:id="@+id/friends_add_search_img"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginLeft="16dp"

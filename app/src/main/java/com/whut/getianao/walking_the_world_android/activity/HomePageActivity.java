@@ -55,7 +55,7 @@ public class HomePageActivity extends AppCompatActivity {
         fragmentList = new ArrayList<>();
         fragmentList.add(new MapFragment());
         fragmentList.add(new TabFragement02());
-        fragmentList.add(new TabFragement03());
+        fragmentList.add(new FriendsFragment());
         fragmentList.add(new MineFragement());
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
