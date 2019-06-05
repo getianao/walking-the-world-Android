@@ -18,6 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.whut.getianao.walking_the_world_android.MyApplication;
 import com.whut.getianao.walking_the_world_android.R;
 import com.whut.getianao.walking_the_world_android.data.Dym;
@@ -32,6 +34,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 
 /**
@@ -147,7 +151,10 @@ public class DymFragement extends Fragment {
             final ViewHolder vh = (ViewHolder) v.getTag();
             final Dym dym = data.get(i);
 
-            vh.iv_img.setImageResource(R.mipmap.python);
+            //vh.iv_img.setImageResource(R.mipmap.python);
+            Glide.with(getContext()).load("http://"+MyApplication.SERVER_IP+":8080/"+dym.getImgUrls().replace("\r\n",""))
+                    .bitmapTransform(new BlurTransformation(getContext(), 25), new CenterCrop(getContext()))
+                    .into(vh.iv_img);
             vh.tv_title.setText(dym.getTitle());
             //vh.tv_location.setText(dym.getLocation());
             vh.tv_detail.setText(dym.getText());
@@ -173,37 +180,5 @@ public class DymFragement extends Fragment {
     }
 
 
-//    public void dymPic(final Dym dym) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Bitmap bmp = getURLimage(dym.getImgUrls());
-//                Message msg = new Message();
-//                msg.what = 0;
-//                msg.obj = bmp;
-//               // handle.sendMessage(msg);
-//            }
-//        }).start();
-//    }
-//
-//    //加载图片
-//    public Bitmap getURLimage(String url) {
-//        Bitmap bmp = null;
-//        try {
-//            URL myurl = new URL(url);
-//            // 获得连接
-//            HttpURLConnection conn = (HttpURLConnection) myurl.openConnection();
-//            conn.setConnectTimeout(6000);//设置超时
-//            conn.setDoInput(true);
-//            conn.setUseCaches(false);//不缓存
-//            conn.connect();
-//            InputStream is = conn.getInputStream();//获得图片的数据流
-//            bmp = BitmapFactory.decodeStream(is);
-//            is.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return bmp;
-//    }
 
 }

@@ -33,7 +33,7 @@ public class AddFriendActivity extends AppCompatActivity {
     private EditText friends_add_search_text;
     private String username;
     private volatile User u;
-    private Context _this=this;
+    private Context _this = this;
 
     private Handler handler = new Handler() {
         @Override
@@ -49,7 +49,7 @@ public class AddFriendActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-
+                    break;
             }
         }
     };
@@ -79,7 +79,6 @@ public class AddFriendActivity extends AppCompatActivity {
                     .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
                     .addItemView(item, onClickListener)
                     .addTo(mGroupListView);
-
         }
     }
 

@@ -24,8 +24,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.whut.getianao.walking_the_world_android.MyApplication;
 import com.whut.getianao.walking_the_world_android.R;
+import com.whut.getianao.walking_the_world_android.data.User;
 import com.whut.getianao.walking_the_world_android.utility.TokenUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener, ViewTreeObserver.OnGlobalLayoutListener, TextWatcher {
 
@@ -57,12 +62,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private final int SIGN_IN_SUCCESS = 0;
     private final int SIGN_IN_FAILED = 1;
 
+    private JSONObject result;
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {      //判断标志位
                 case SIGN_IN_SUCCESS:
+                    try {
+                        MyApplication.userId=Integer.valueOf((result.getJSONObject("res")).getString("id"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     mToast.makeText(getApplicationContext(), "登录成功！", Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(getApplicationContext(),HomePageActivity.class);
                     startActivity(intent);
@@ -417,10 +429,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int result = TokenUtil.loginVerificate(email, pwd);
+                 result = TokenUtil.loginVerificate(email, pwd);
                 //从全局池中返回一个message实例，避免多次创建message（如new Message）
                 Message msg = Message.obtain();
-                msg.what = (result == 0) ? SIGN_IN_SUCCESS : SIGN_IN_FAILED;   //标志消息的标志
+                try {
+                    msg.what = ((int)result.get("status")==0) ? SIGN_IN_SUCCESS : SIGN_IN_FAILED;   //标志消息的标志
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 handler.sendMessage(msg);
             }
         }).start();

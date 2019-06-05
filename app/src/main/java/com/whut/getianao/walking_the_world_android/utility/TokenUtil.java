@@ -1,5 +1,7 @@
 package com.whut.getianao.walking_the_world_android.utility;
 
+import com.whut.getianao.walking_the_world_android.data.User;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -93,9 +95,9 @@ public class TokenUtil {
      * @author Liu Zhian
      * @time 2019/5/30 0030 下午 7:57
      */
-    public static int loginVerificate(String email,String password)
+    public static JSONObject loginVerificate(String email, String password)
     {
-        int resultCode = -1;
+        JSONObject result=null;
         String temp;
         StringBuilder sb = new StringBuilder();
         try {
@@ -110,9 +112,9 @@ public class TokenUtil {
             in.close();
             System.out.println(sb);
             // 解析服务器返回的数据，从string转为JSON
-            JSONObject result = new JSONObject(sb.toString());
-            resultCode = (int) result.get("status");
-            System.out.println(resultCode);
+             result = new JSONObject(sb.toString());
+           // resultCode = UserUtil.trans((JSONObject)result.get("res"));
+            System.out.println(result);
         } catch (MalformedURLException me) {
             System.err.println("你输入的URL格式有问题！");
             me.printStackTrace();
@@ -121,6 +123,6 @@ public class TokenUtil {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return resultCode;
+        return result;
     }
 }

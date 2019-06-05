@@ -38,7 +38,7 @@ import static com.whut.getianao.walking_the_world_android.utility.UserUtil.getFr
 public class MineFragement extends Fragment {
     private QMUIGroupListView mGroupListView;
     private View view;
-    private  volatile User u;
+    private volatile User u;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -48,22 +48,22 @@ public class MineFragement extends Fragment {
                     try {
                         JSONObject userJSON = new JSONObject(msg.getData().getString("user"));
                         u = UserUtil.trans(userJSON);
-                    } catch (JSONException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-
+                    break;
             }
         }
     };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_mine, container, false);
 
-       mGroupListView=view.findViewById(R.id.acyivity_mine_listitem);
+        mGroupListView = view.findViewById(R.id.acyivity_mine_listitem);
 
         inituser();
-        while (u==null){
+        while (u == null) {
             ;
         }
         inithead();
@@ -73,13 +73,13 @@ public class MineFragement extends Fragment {
     }
 
 
-    private void inituser(){
+    private void inituser() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 JSONObject userJson = getFriendInfo(MyApplication.userId);
                 Bundle bundle = new Bundle();
-                bundle.putString("user",userJson.toString() );
+                bundle.putString("user", userJson.toString());
                 Message msg = handler.obtainMessage();//每发送一次都要重新获取
                 msg.what = 0;
                 msg.setData(bundle);
@@ -89,15 +89,16 @@ public class MineFragement extends Fragment {
         }).start();
 
     }
-    private void inithead(){
+
+    private void inithead() {
         ImageView blurImageView = view.findViewById(R.id.h_back);
-        String uuuurl="http://172.20.10.3:8080/";
-        System.out.println(uuuurl+u.getHeadUrl());
-        Glide.with(this).load(uuuurl+u.getHeadUrl().replace("\r\n",""))
+        String uuuurl = "http://"+MyApplication.SERVER_IP+":8080/";
+        System.out.println(uuuurl + u.getHeadUrl());
+        Glide.with(this).load(uuuurl + u.getHeadUrl().replace("\r\n", ""))
                 .bitmapTransform(new BlurTransformation(getContext(), 25), new CenterCrop(getContext()))
                 .into(blurImageView);
         ImageView avatarImageView = view.findViewById(R.id.h_head);
-        Glide.with(this).load( uuuurl+u.getHeadUrl().replace("\r\n",""))
+        Glide.with(this).load(uuuurl + u.getHeadUrl().replace("\r\n", ""))
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .into(avatarImageView);
 
@@ -139,7 +140,6 @@ public class MineFragement extends Fragment {
         itemWithDetai3.setDetailText(String.valueOf(u.getBornPlace()));
 
 
-
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,11 +166,12 @@ public class MineFragement extends Fragment {
 //                .addItemView(itemWithCustom, onClickListener)
 //                .addTo(mGroupListView);
     }
+
     private void showEditTextDialog(final QMUICommonListItemView view) {
         final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(getActivity());
         CharSequence text = (view).getText();
-        builder.setTitle(text+"")
-                .setPlaceholder("在此输入您新的"+text)
+        builder.setTitle(text + "")
+                .setPlaceholder("在此输入您新的" + text)
                 .setInputType(InputType.TYPE_CLASS_TEXT)
                 .addAction("取消", new QMUIDialogAction.ActionListener() {
                     @Override
@@ -188,7 +189,7 @@ public class MineFragement extends Fragment {
                             Toast.makeText(getActivity(), "您的昵称: " + text, Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         } else {
-                            Toast.makeText(getActivity(), "请填入新的"+text, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "请填入新的" + text, Toast.LENGTH_SHORT).show();
                         }
                     }
                 })

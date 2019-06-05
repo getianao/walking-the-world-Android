@@ -230,8 +230,8 @@ public class UserUtil {
             JSONObject obj = josnData.getJSONObject("res"); //获取JSONArray
             user = new User();
             user.setAge(obj.getInt("age"));
-            user.setBornPlace(obj.getString("bornPlace"));
-            user.setCompany(obj.getString("company"));
+            user.setBornPlace(obj.getString("bornPlace"));//
+            user.setCompany(obj.getString("company"));//
             user.setEmail(obj.getString("email"));
             user.setHeadUrl(obj.getString("headUrl"));
             user.setId(Integer.valueOf(obj.getString("id")));

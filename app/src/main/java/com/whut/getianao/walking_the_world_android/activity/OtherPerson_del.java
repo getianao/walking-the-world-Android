@@ -152,19 +152,19 @@ public class OtherPerson_del extends AppCompatActivity {
                         .create().show();
             }
         });
-        Glide.with(this).load(R.mipmap.head)
+        Glide.with(this).load("http://"+MyApplication.SERVER_IP+":8080/"+u.getHeadUrl().replace("\r\n",""))
                 .bitmapTransform(new BlurTransformation((this), 25), new CenterCrop(this))
                 .into(blurImageView);
         ImageView avatarImageView = findViewById(R.id.h_head);
-        Glide.with(this).load(R.mipmap.head)
+        Glide.with(this).load("http://"+MyApplication.SERVER_IP+":8080/"+u.getHeadUrl().replace("\r\n",""))
                 .bitmapTransform(new CropCircleTransformation(this))
                 .into(avatarImageView);
-//
-//        TextView username = view.findViewById(R.id.user_name);
-//        username.setText(u.getName());
-//        TextView user_email = view.findViewById(R.id.user_email);
-//        user_email.setText(u.getEmail());
-//        TextView user_age = view.findViewById(R.id.user_age);
+
+        TextView username = findViewById(R.id.user_name);
+        username.setText(u.getName());
+        TextView user_email =findViewById(R.id.user_email);
+        user_email.setText(u.getEmail());
+//        TextView user_age = findViewById(R.id.user_age);
 //        user_email.setText(u.getAge());
 //        TextView user_company = view.findViewById(R.id.user_company);
 //        user_email.setText(u.getCompany());
@@ -182,7 +182,7 @@ public class OtherPerson_del extends AppCompatActivity {
                 null,
                 QMUICommonListItemView.HORIZONTAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetail.setDetailText(String.valueOf(11));
+        itemWithDetail.setDetailText(String.valueOf(u.getAge()));
 
         QMUICommonListItemView itemWithDetai2 = mGroupListView.createItemView(
                 ContextCompat.getDrawable(this, R.mipmap.friends_selected),
@@ -190,7 +190,7 @@ public class OtherPerson_del extends AppCompatActivity {
                 null,
                 QMUICommonListItemView.HORIZONTAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetai2.setDetailText(String.valueOf(12));
+        itemWithDetai2.setDetailText(String.valueOf(u.getCompany()));
 
         QMUICommonListItemView itemWithDetai3 = mGroupListView.createItemView(
                 ContextCompat.getDrawable(this, R.mipmap.friends_selected),
@@ -198,7 +198,7 @@ public class OtherPerson_del extends AppCompatActivity {
                 null,
                 QMUICommonListItemView.HORIZONTAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetai3.setDetailText(String.valueOf(13));
+        itemWithDetai3.setDetailText(String.valueOf(u.getBornPlace()));
 
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
