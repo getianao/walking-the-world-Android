@@ -33,8 +33,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class AddNewsActivity extends Activity {
@@ -44,6 +49,7 @@ public class AddNewsActivity extends Activity {
     private int REQUEST_CODE_PICK_IMAGE = 3538;//相册请求码
     private String imgName;
     private Uri uri;
+    private File cameraFile = null;
     private String path;
     private Context _this = this;
 
@@ -105,14 +111,19 @@ public class AddNewsActivity extends Activity {
                                 Message msg = Message.obtain();
                                 msg.what = (upLoadFileResult.getInt("status") == 0) ? UPLOAD_IMAGE_SUCCESS : UPLOAD_IMAGE_FAILED;   //标志消息的标志
                                 handler.sendMessage(msg);
+                            } else { // 相加拍照上传
+                                upLoadFileResult = UploadUtil.uploadFile(cameraFile);  // 上传文件
+                                Message msg = Message.obtain();
+                                msg.what = (upLoadFileResult.getInt("status") == 0) ? UPLOAD_IMAGE_SUCCESS : UPLOAD_IMAGE_FAILED;   //标志消息的标志
+                                handler.sendMessage(msg);
                             }
                             Map<String, Object> newsData = new HashMap<>();
                             newsData.put("userId", MyApplication.userId);
                             newsData.put("title", tv_title.getText().toString());
                             newsData.put("text", tv_detail.getText().toString());
                             newsData.put("location", tv_location.getText().toString());
-                            String imgUrls = (path == null) ? "" : upLoadFileResult.getString("res");
-                            newsData.put("imgUrls",imgUrls );  // 只能上传一张图片
+                            String imgUrls = upLoadFileResult.getString("res");
+                            newsData.put("imgUrls", imgUrls);  // 只能上传一张图片
 
                             int result = -1;
                             result = ActivityUtil.addActivity(newsData);  // 上传一个动态到服务器
@@ -161,21 +172,57 @@ public class AddNewsActivity extends Activity {
     //打开相机
     private void openSysCamera() {
         allow_permission();
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        imgName = "酷行天下" + System.currentTimeMillis();
+//        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        imgName = "酷行天下" + System.currentTimeMillis()+".jpg";
+//        cameraFile=new File(Environment.getExternalStorageDirectory(), imgName);
+//        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile));
+//        startActivityForResult(cameraIntent, CAMERA_RESULT_CODE);
+        startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), CAMERA_RESULT_CODE);
+    }
 
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(
-                new File(Environment.getExternalStorageDirectory(), imgName)));
-        startActivityForResult(cameraIntent, CAMERA_RESULT_CODE);
+    /**
+     * 保存相机的图片
+     **/
+    private void saveCameraImage(Intent data) {
+        // 检查sd card是否存在
+        if (!Environment.getExternalStorageState().equals(
+                Environment.MEDIA_MOUNTED)) {
+            return;
+        }
+        // 为图片命名啊
+        String name = "酷行天下" + System.currentTimeMillis() + ".jpg";
+        Bitmap bmp = (Bitmap) data.getExtras().get("data");// 解析返回的图片成bitmap
+
+        // 保存文件
+        FileOutputStream fos = null;
+        cameraFile = new File(Environment.getExternalStorageDirectory(), name);
+
+        try {// save image
+            fos = new FileOutputStream(cameraFile);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.flush();
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        // 显示图片
+        im_addPic.setImageBitmap(bmp);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_RESULT_CODE) {
-            File tempFile = new File(Environment.getExternalStorageDirectory(), imgName);
-            uri = Uri.fromFile(tempFile);
-            im_addPic.setImageURI(uri);
+//            File tempFile = new File(Environment.getExternalStorageDirectory(), imgName);
+//            uri = Uri.fromFile(cameraFile);
+//
+//            im_addPic.setImageURI(uri);
+            saveCameraImage(data);
         } else if (requestCode == REQUEST_CODE_PICK_IMAGE) {
             if (resultCode == RESULT_OK) {//resultcode是setResult里面设置的code值
                 try {

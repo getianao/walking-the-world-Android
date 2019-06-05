@@ -50,7 +50,7 @@ public class ActivityUtil {
         // 序列化
         JSONObject json_data = new JSONObject(data);
         String s = String.valueOf(json_data);
-        conn.setRequestProperty("Content-Length", s.length() + "");
+        // conn.setRequestProperty("Content-Length", s.length() + "");
         // 4.一定要记得设置 把数据以流的方式写给服务器
         conn.setDoOutput(true); // 设置要向服务器写数据
         conn.getOutputStream().write(s.getBytes());

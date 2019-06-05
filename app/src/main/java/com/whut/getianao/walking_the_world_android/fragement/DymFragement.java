@@ -76,12 +76,13 @@ public class DymFragement extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dym, container, false);
         lv = view.findViewById(R.id.list_view);
-
-        getDymData();
-
-
         return view;
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getDymData();
     }
 
     //初始化动态信息
@@ -151,6 +152,7 @@ public class DymFragement extends Fragment {
             final ViewHolder vh = (ViewHolder) v.getTag();
             final Dym dym = data.get(i);
 
+
             //vh.iv_img.setImageResource(R.mipmap.python);
             Glide.with(getContext()).load("http://"+MyApplication.SERVER_IP+":8080/"+dym.getImgUrls().replace("\r\n",""))
                     .bitmapTransform(new BlurTransformation(getContext(), 25), new CenterCrop(getContext()))
@@ -158,6 +160,8 @@ public class DymFragement extends Fragment {
             vh.tv_title.setText(dym.getTitle());
             //vh.tv_location.setText(dym.getLocation());
             vh.tv_detail.setText(dym.getText());
+            // 设置点赞数
+            vh.tv_dianzhanhsu.setText(""+(Long.valueOf(dym.getLikeCount())));
 
             //点赞
             vh.iv_zan.setOnClickListener(new View.OnClickListener() {

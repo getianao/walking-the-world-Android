@@ -109,6 +109,7 @@ public class FriendsFragment extends Fragment {
     private void initView() {
         imageViewadd = view.findViewById(R.id.friends_add);
         imageViewsearch = view.findViewById(R.id.friends_search);
+        imageViewsearch.setVisibility(view.INVISIBLE);
         imageViewadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
