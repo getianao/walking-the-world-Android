@@ -54,9 +54,15 @@ public class AddFriendActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_add);
         initView();
+        while(u==null){
+            ;
+        }
+        addItemGroupListView();
     }
     private void initView() {
-        imageView_search=findViewById(R.id.friends_add_search_img);
+        imageView_search=findViewById(R.id.friends_search);
+        friends_add_search_text=findViewById(R.id.friends_add_search_text);
+
         mGroupListView=findViewById(R.id.groupListView_add_friends);
         imageView_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +91,7 @@ public class AddFriendActivity extends AppCompatActivity{
         }).start();
     }
     private void addItemGroupListView(){
+
         QMUICommonListItemView itemWithDetail = mGroupListView.createItemView(
                 ContextCompat.getDrawable(this, R.mipmap.friends_selected),
                 "name",
@@ -96,7 +103,7 @@ public class AddFriendActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if (v instanceof QMUICommonListItemView) {
-                    Intent intent = new Intent(getContext(), OtherPerson_add.class);
+                    Intent intent = new Intent(getApplicationContext(), OtherPerson_add.class);
                     intent.putExtra("id", u.getId());
                     startActivity(intent);
 
