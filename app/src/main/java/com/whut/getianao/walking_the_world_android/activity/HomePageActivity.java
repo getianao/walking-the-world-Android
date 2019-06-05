@@ -106,7 +106,7 @@ public class HomePageActivity extends AppCompatActivity {
 
 
         navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(viewPager, 2);
+        navigationTabBar.setViewPager(viewPager, 0);
 
         navigationTabBar.setTitleMode(NavigationTabBar.TitleMode.ACTIVE);
 //        navigationTabBar.setBadgeGravity(NavigationTabBar.BadgeGravity.BOTTOM);

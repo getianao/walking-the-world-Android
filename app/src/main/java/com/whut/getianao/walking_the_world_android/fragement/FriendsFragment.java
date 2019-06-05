@@ -100,7 +100,7 @@ public class FriendsFragment extends Fragment {
         view = inflater.inflate(R.layout.activity_friends, container, false);
 
         mGroupListView = view.findViewById(R.id.groupListView_friends);
-        initGroupListView();
+        //initGroupListView();
         initView();
 
         return view;
@@ -128,6 +128,7 @@ public class FriendsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        mGroupListView.removeAllViews();
         initGroupListView();
 
     }

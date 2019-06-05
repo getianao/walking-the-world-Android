@@ -41,9 +41,9 @@ import static com.whut.getianao.walking_the_world_android.utility.UserUtil.getFr
 public class OtherPerson_del extends AppCompatActivity {
     private QMUIGroupListView mGroupListView;
     private User u;
-    private Context _this=this;
+    private Context _this = this;
     private ImageButton op_add;
-    private int res=0;
+    private int res = 0;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -56,6 +56,7 @@ public class OtherPerson_del extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    break;
                 case 1:
                     try {
                         JSONObject userJSON = new JSONObject(msg.getData().getString("user"));
@@ -64,27 +65,27 @@ public class OtherPerson_del extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-
+                    break;
             }
         }
     };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine);
-        mGroupListView=findViewById(R.id.acyivity_mine_listitem);
+        mGroupListView = findViewById(R.id.acyivity_mine_listitem);
         inithead();
         initGroupListView();
 
     }
 
 
-    public void Friend_del( final int friendsid){
+    public void Friend_del(final int friendsid) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int  res = UserUtil.deleteFriend(MyApplication.userId,friendsid);
+                int res = UserUtil.deleteFriend(MyApplication.userId, friendsid);
                 Bundle bundle = new Bundle();
                 bundle.putString("result", String.valueOf(res));
                 Message msg = handler.obtainMessage();//每发送一次都要重新获取
@@ -94,7 +95,8 @@ public class OtherPerson_del extends AppCompatActivity {
             }
         }).start();
     }
-    public void getInfobyid(){
+
+    public void getInfobyid() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -109,12 +111,13 @@ public class OtherPerson_del extends AppCompatActivity {
             }
         }).start();
     }
-    private void inithead(){
+
+    private void inithead() {
         /**
          * 获取userId
          */
         getInfobyid();
-        while (u==null){
+        while (u == null) {
             ;
         }
         ImageView blurImageView = findViewById(R.id.h_back);
@@ -137,11 +140,11 @@ public class OtherPerson_del extends AppCompatActivity {
                             @Override
                             public void onClick(QMUIDialog dialog, int index) {
                                 dialog.dismiss();
-                               Friend_del(u.getId());
+                                Friend_del(u.getId());
 
-                                if ( res!=-1) {
+                                if (res != -1) {
                                     Toast.makeText(_this, "删除成功", Toast.LENGTH_SHORT).show();
-                                }else {
+                                } else {
                                     Toast.makeText(_this, "删除失败", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -149,11 +152,11 @@ public class OtherPerson_del extends AppCompatActivity {
                         .create().show();
             }
         });
-        Glide.with(this).load( R.mipmap.head)
+        Glide.with(this).load(R.mipmap.head)
                 .bitmapTransform(new BlurTransformation((this), 25), new CenterCrop(this))
                 .into(blurImageView);
         ImageView avatarImageView = findViewById(R.id.h_head);
-        Glide.with(this).load( R.mipmap.head)
+        Glide.with(this).load(R.mipmap.head)
                 .bitmapTransform(new CropCircleTransformation(this))
                 .into(avatarImageView);
 //
@@ -198,7 +201,6 @@ public class OtherPerson_del extends AppCompatActivity {
         itemWithDetai3.setDetailText(String.valueOf(13));
 
 
-
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,11 +227,12 @@ public class OtherPerson_del extends AppCompatActivity {
 //                .addItemView(itemWithCustom, onClickListener)
 //                .addTo(mGroupListView);
     }
+
     private void showEditTextDialog(final QMUICommonListItemView view) {
         final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(_this);
         CharSequence text = (view).getText();
-        builder.setTitle(text+"")
-                .setPlaceholder("在此输入您新的"+text)
+        builder.setTitle(text + "")
+                .setPlaceholder("在此输入您新的" + text)
                 .setInputType(InputType.TYPE_CLASS_TEXT)
                 .addAction("取消", new QMUIDialogAction.ActionListener() {
                     @Override
@@ -247,7 +250,7 @@ public class OtherPerson_del extends AppCompatActivity {
                             Toast.makeText(_this, "您的昵称: " + text, Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         } else {
-                            Toast.makeText(_this, "请填入新的"+text, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(_this, "请填入新的" + text, Toast.LENGTH_SHORT).show();
                         }
                     }
                 })

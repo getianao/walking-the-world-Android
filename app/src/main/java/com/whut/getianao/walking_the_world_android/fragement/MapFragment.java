@@ -159,6 +159,7 @@ public class MapFragment extends Fragment implements View.OnClickListener, Adapt
                 PoiSearch mPoiSearch = PoiSearch.newInstance();
                 OnGetPoiSearchResultListener poiListener = new MyGetPoiSearchResultListener();
                 mPoiSearch.setOnGetPoiSearchResultListener(poiListener);
+                mListView.setVisibility(View.VISIBLE);
                 // 检索
                 mPoiSearch.searchInCity((new PoiCitySearchOption())
                         .city("武汉") //必填

@@ -11,7 +11,8 @@ import com.baidu.mapapi.SDKInitializer;
  */
 public class MyApplication extends Application {
     static public int userId = 1;
-    @Override
+    static public String SERVER_IP="10.120.174.62";
+   @Override
     public void onCreate() {
         super.onCreate();
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext

@@ -3,6 +3,7 @@ package com.whut.getianao.walking_the_world_android.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -39,11 +40,12 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import static com.whut.getianao.walking_the_world_android.utility.UserUtil.getFriendInfo;
 
 public class OtherPerson_add extends AppCompatActivity {
+    private int userId;
     private QMUIGroupListView mGroupListView;
     private User u;
-    private Context _this=this;
+    private Context _this = this;
     private ImageButton op_add;
-    int res=0;
+    int res = -1;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -52,37 +54,47 @@ public class OtherPerson_add extends AppCompatActivity {
                 case 0:
                     try {
                         res = new Integer(msg.getData().getString("result"));
+                        if (res ==0) {
+                            Toast.makeText(getApplicationContext(), "添加成功", Toast.LENGTH_SHORT).show();
 
+                        } else {
+
+                            Toast.makeText(getApplicationContext(), "添加失败", Toast.LENGTH_SHORT).show();
+
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    break;
                 case 1:
                     try {
                         JSONObject userJSON = new JSONObject(msg.getData().getString("user"));
                         u = UserUtil.trans(userJSON);
 
-                    } catch (JSONException e)
-                {
-                    e.printStackTrace();
-                }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
 
             }
         }
     };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine);
-        mGroupListView=findViewById(R.id.acyivity_mine_listitem);
+        mGroupListView = findViewById(R.id.acyivity_mine_listitem);
+        userId = getIntent().getIntExtra("id", 1);
         inithead();
         initGroupListView();
-
     }
-    public void getInfobyid(){
+
+    public void getInfobyid() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                JSONObject userJson = UserUtil.getFriendInfo(Integer.valueOf(getIntent().getStringExtra("id")));
+                JSONObject userJson = UserUtil.getFriendInfo(userId);
                 Bundle bundle = new Bundle();
                 bundle.putString("user", userJson.toString());
                 Message msg = handler.obtainMessage();//每发送一次都要重新获取
@@ -93,12 +105,13 @@ public class OtherPerson_add extends AppCompatActivity {
             }
         }).start();
     }
-    private void inithead(){
+
+    private void inithead() {
         /**
          * 获取userId
          */
         getInfobyid();
-        while (u==null){
+        while (u == null) {
             ;
         }
 
@@ -122,11 +135,7 @@ public class OtherPerson_add extends AppCompatActivity {
                             public void onClick(QMUIDialog dialog, int index) {
                                 dialog.dismiss();
                                 Friend_add(u.getId());
-                                if (res>-1) {
-                                    Toast.makeText(_this, "添加成功", Toast.LENGTH_SHORT).show();
-                                }else {
-                                    Toast.makeText(_this, "添加失败", Toast.LENGTH_SHORT).show();
-                                }
+
 
                             }
                         })
@@ -134,36 +143,38 @@ public class OtherPerson_add extends AppCompatActivity {
             }
         });
         ImageView blurImageView = findViewById(R.id.h_back);
-        Glide.with(this).load( R.mipmap.head)
+        Glide.with(this).load("http://"+MyApplication.SERVER_IP+":8080/"+u.getHeadUrl().replace("\r\n",""))
                 .bitmapTransform(new BlurTransformation((this), 25), new CenterCrop(this))
                 .into(blurImageView);
         ImageView avatarImageView = findViewById(R.id.h_head);
-        Glide.with(this).load( R.mipmap.head)
+        Glide.with(this).load("http://"+MyApplication.SERVER_IP+":8080/"+u.getHeadUrl().replace("\r\n",""))
                 .bitmapTransform(new CropCircleTransformation(this))
                 .into(avatarImageView);
-//
-//        TextView username = view.findViewById(R.id.user_name);
-//        username.setText(u.getName());
-//        TextView user_email = view.findViewById(R.id.user_email);
-//        user_email.setText(u.getEmail());
-//        TextView user_age = view.findViewById(R.id.user_age);
+
+        TextView username = findViewById(R.id.user_name);
+        username.setText(u.getName());
+        TextView user_email = findViewById(R.id.user_email);
+        user_email.setText(u.getEmail());
+//        TextView user_age = findViewById(R.id.user_age);
 //        user_email.setText(u.getAge());
-//        TextView user_company = view.findViewById(R.id.user_company);
+//        TextView user_company = findViewById(R.id.user_company);
 //        user_email.setText(u.getCompany());
-//        TextView user_bornPlace = view.findViewById(R.id.user_bornPlace());
+//        TextView user_bornPlace = findViewById(R.id.user_bornPlace());
 //        user_email.setText(u.getBornPlace());
     }
-    public void Friend_add( final int friendsid){
+
+    public void Friend_add(final int friendsid) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int  res = UserUtil.addFriend(MyApplication.userId,friendsid);
+                int res = UserUtil.addFriend(MyApplication.userId, friendsid);
                 Bundle bundle = new Bundle();
                 bundle.putString("result", String.valueOf(res));
                 Message msg = handler.obtainMessage();//每发送一次都要重新获取
                 msg.what = 0;
                 msg.setData(bundle);
                 handler.sendMessage(msg);//用handler向主线程发送信息
+                handler.handleMessage(msg);
             }
         }).start();
     }
@@ -197,7 +208,6 @@ public class OtherPerson_add extends AppCompatActivity {
         itemWithDetai3.setDetailText(String.valueOf(u.getBornPlace()));
 
 
-
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -224,11 +234,12 @@ public class OtherPerson_add extends AppCompatActivity {
 //                .addItemView(itemWithCustom, onClickListener)
 //                .addTo(mGroupListView);
     }
+
     private void showEditTextDialog(final QMUICommonListItemView view) {
         final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(_this);
         CharSequence text = (view).getText();
-        builder.setTitle(text+"")
-                .setPlaceholder("在此输入您新的"+text)
+        builder.setTitle(text + "")
+                .setPlaceholder("在此输入您新的" + text)
                 .setInputType(InputType.TYPE_CLASS_TEXT)
                 .addAction("取消", new QMUIDialogAction.ActionListener() {
                     @Override
@@ -246,7 +257,7 @@ public class OtherPerson_add extends AppCompatActivity {
                             Toast.makeText(_this, "您的昵称: " + text, Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         } else {
-                            Toast.makeText(_this, "请填入新的"+text, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(_this, "请填入新的" + text, Toast.LENGTH_SHORT).show();
                         }
                     }
                 })

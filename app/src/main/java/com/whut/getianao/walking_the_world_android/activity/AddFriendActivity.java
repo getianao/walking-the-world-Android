@@ -1,5 +1,6 @@
 package com.whut.getianao.walking_the_world_android.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,7 +32,8 @@ public class AddFriendActivity extends AppCompatActivity {
     private ImageView imageView_search;
     private EditText friends_add_search_text;
     private String username;
-    private  volatile User u;
+    private volatile User u;
+    private Context _this=this;
 
     private Handler handler = new Handler() {
         @Override
@@ -42,6 +44,7 @@ public class AddFriendActivity extends AppCompatActivity {
                     try {
                         JSONObject userJSON = new JSONObject(msg.getData().getString("user"));
                         u = UserUtil.trans(userJSON);
+                        renderGroupListView();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -50,23 +53,25 @@ public class AddFriendActivity extends AppCompatActivity {
             }
         }
     };
+
     private void renderGroupListView() {
         if (true) {
             QMUICommonListItemView item = mGroupListView.createItemView(
                     ContextCompat.getDrawable(this, R.mipmap.friends_selected),
-                    "年龄",
+                    "用户名",
                     null,
                     QMUICommonListItemView.HORIZONTAL,
                     QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+            item.setDetailText(String.valueOf(u.getName()));
+            // 929910266@qq.com
             View.OnClickListener onClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                if (v instanceof QMUICommonListItemView) {
-//                    CharSequence text = ((QMUICommonListItemView) v).getText();
-//                    Toast.makeText(getActivity(), text + " is Clicked", Toast.LENGTH_SHORT).show();
-//
-//                        showEditTextDialog((QMUICommonListItemView) v);
-//                }
+                    if (v instanceof QMUICommonListItemView) {
+                        Intent intent = new Intent(_this, OtherPerson_add.class);
+                        intent.putExtra("id", u.getId());
+                        startActivity(intent);
+                    }
                 }
             };
             int size = QMUIDisplayHelper.dp2px(this, 20);
@@ -83,69 +88,65 @@ public class AddFriendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_add);
         initView();
-        while(u==null){
-            ;
-        }
-        addItemGroupListView();
     }
 
     private void initView() {
 
         imageView_search = findViewById(R.id.friends_search);
         friends_add_search_text = findViewById(R.id.friends_add_search_text);
+        friends_add_search_text.setText("929910266@qq.com");
         mGroupListView = findViewById(R.id.groupListView_add_friends);
         // 加好友
         imageView_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // final String username = friends_add_search_text.getText().toString().trim();
-                renderGroupListView();
+                username = friends_add_search_text.getText().toString().trim();
+                queryUser();
             }
         });
     }
 
-    private void initGroupListView() {
+    private void queryUser() {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                JSONObject userJson =UserUtil.queryUser(username);
+                JSONObject userJson = UserUtil.queryUser(username);
                 Bundle bundle = new Bundle();
-                bundle.putString("user",userJson.toString() );
+                bundle.putString("user", userJson.toString());
                 Message msg = handler.obtainMessage();//每发送一次都要重新获取
                 msg.what = 0;
                 msg.setData(bundle);
                 handler.sendMessage(msg);//用handler向主线程发送信息
-                handler.handleMessage(msg);
             }
         }).start();
     }
-    private void addItemGroupListView(){
 
-        QMUICommonListItemView itemWithDetail = mGroupListView.createItemView(
-                ContextCompat.getDrawable(this, R.mipmap.friends_selected),
-                "name",
-                null,
-                QMUICommonListItemView.HORIZONTAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
-        itemWithDetail.setDetailText(String.valueOf(u.getEmail()));
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v instanceof QMUICommonListItemView) {
-                    Intent intent = new Intent(getApplicationContext(), OtherPerson_add.class);
-                    intent.putExtra("id", u.getId());
-                    startActivity(intent);
-
-                }
-            }
-        };
-
-        int size = QMUIDisplayHelper.dp2px(this, 20);
-        QMUIGroupListView.newSection(this)
-                .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
-                .addItemView(itemWithDetail, onClickListener)
-                .addTo(mGroupListView);
+    private void addItemGroupListView() {
+//        QMUICommonListItemView itemWithDetail = mGroupListView.createItemView(
+//                ContextCompat.getDrawable(this, R.mipmap.friends_selected),
+//                "name",
+//                null,
+//                QMUICommonListItemView.HORIZONTAL,
+//                QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+//        itemWithDetail.setDetailText(String.valueOf(u.getEmail()));
+//        View.OnClickListener onClickListener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (v instanceof QMUICommonListItemView) {
+//                    Intent intent = new Intent(getApplicationContext(), OtherPerson_add.class);
+//                    intent.putExtra("id", u.getId());
+//                    startActivity(intent);
+//
+//                }
+//            }
+//        };
+//
+//        int size = QMUIDisplayHelper.dp2px(this, 20);
+//        QMUIGroupListView.newSection(this)
+//                .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
+//                .addItemView(itemWithDetail, onClickListener)
+//                .addTo(mGroupListView);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.whut.getianao.walking_the_world_android.utility;
 
+import com.whut.getianao.walking_the_world_android.MyApplication;
 import com.whut.getianao.walking_the_world_android.data.User;
 
 import org.json.JSONArray;
@@ -28,7 +29,7 @@ public class UserUtil {
      * @author Liu Zhian
      * @time 2019/6/3 0003 下午 12:00
      */
-     static public String uuuurl="http://172.20.10.3:8080";
+     static public String uuuurl="http://"+MyApplication.SERVER_IP+":8080";
     // "http://10.120.174.62:8080"
     public static int addFriend(int userId, int friendId) {
         int result = -1;
