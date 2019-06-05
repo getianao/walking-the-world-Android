@@ -59,6 +59,7 @@ public class FriendsFragment extends Fragment {
     };
 
     private void handleGetList() {
+
         if (list.size() > 0) {
             QMUICommonListItemView[] items = new QMUICommonListItemView[list.size()];
             for (int i = 0; i < list.size(); i++) {
@@ -88,6 +89,9 @@ public class FriendsFragment extends Fragment {
                         .addTo(mGroupListView);
             }
         }
+
+
+
     }
 
 
@@ -146,6 +150,12 @@ public class FriendsFragment extends Fragment {
 //                .setTitle("Section 2: 自定义右侧 View")
 //                .addItemView(itemWithCustom, onClickListener)
 //                .addTo(mGroupListView);
+
+
+
+
+
+
     }
 }
 

@@ -57,7 +57,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="mLm1M72vQsOLZgxxvOOKzI30AqNOhRwo"/>
 
-        <activity android:name=".activity.UploadActivity" />
+
         <activity
             android:name=".activity.LoginActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -85,8 +85,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Account_Base.App.Theme.NoTitle"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
-        <activity android:name=".activity.ShareActivity"
-            android:theme="@style/Account_Base.App.Theme.NoTitle"/>
+
         <activity android:name=".activity.FriendsSearchActivity"
                   android:theme="@style/Account_Base.App.Theme.NoTitle"/>
         <activity android:name=".activity.AddFriendActivity"

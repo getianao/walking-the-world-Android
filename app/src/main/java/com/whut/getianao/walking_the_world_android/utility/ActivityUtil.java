@@ -38,7 +38,7 @@ public class ActivityUtil {
      */
     public static int addActivity(Map<String, Object> data) throws IOException {
         // 1.定义请求url
-        URL url = new URL("http://10.120.174.62:8080/activity/publish");
+        URL url = new URL("http://172.20.10.3:8080/activity/publish");
         // 2.建立一个http的连接
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setConnectTimeout(5000);//设置连接超时时间
@@ -128,7 +128,7 @@ public class ActivityUtil {
         String temp;
         StringBuilder sb = new StringBuilder();
         try {
-            URL url = new URL(String.format("http://10.120.174.62:8080/activity/friendCircle?userId=%d", userId));
+            URL url = new URL(String.format("http://172.20.10.3:8080/activity/friendCircle?userId=%d", userId));
             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));// 获取输入流
             while ((temp = in.readLine()) != null) {
                 sb.append(temp);

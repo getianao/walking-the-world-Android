@@ -91,7 +91,7 @@ public class MineFragement extends Fragment {
     }
     private void inithead(){
         ImageView blurImageView = view.findViewById(R.id.h_back);
-        String uuuurl="http://192.168.1.102:8080/";
+        String uuuurl="http://172.20.10.3:8080/";
         System.out.println(uuuurl+u.getHeadUrl());
         Glide.with(this).load(uuuurl+u.getHeadUrl().replace("\r\n",""))
                 .bitmapTransform(new BlurTransformation(getContext(), 25), new CenterCrop(getContext()))

@@ -51,7 +51,7 @@ public class HomePageActivity extends AppCompatActivity {
     private void initPageView() {
         fragmentList = new ArrayList<>();
         fragmentList.add(new MapFragment());
-//        fragmentList.add(new DymFragement());
+        fragmentList.add(new DymFragement());
         fragmentList.add(new FriendsFragment());
        fragmentList.add( new MineFragement());
 
@@ -111,7 +111,7 @@ public class HomePageActivity extends AppCompatActivity {
         navigationTabBar.setTitleMode(NavigationTabBar.TitleMode.ACTIVE);
 //        navigationTabBar.setBadgeGravity(NavigationTabBar.BadgeGravity.BOTTOM);
 //        navigationTabBar.setBadgePosition(NavigationTabBar.BadgePosition.CENTER);
-        navigationTabBar.setTypeface("fonts/custom_font.ttf");
+//         navigationTabBar.setTypeface("fonts/custom_font.ttf");
         navigationTabBar.setIsBadged(false);
         navigationTabBar.setIsTitled(true);
         navigationTabBar.setIsTinted(true);
